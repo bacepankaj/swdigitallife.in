@@ -14,8 +14,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 
 #for normal host
-RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+#RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 
+#for virtual host
+RewriteRule ^(.+)$ /somu/swdigitallife.in/index.php?url=$1 [QSA,L]
 
 #cache html and htm files for one day
 <FilesMatch ".(html|htm)$">
