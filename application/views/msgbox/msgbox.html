@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="shortcut icon" href="<?=PUBLIC_PATH?>/assets/images/favicon.ico">
+
+        <!-- Bootstrap core CSS -->
+        <link href="<?=PUBLIC_PATH?>/assets/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Icons CSS -->
+        <link href="<?=PUBLIC_PATH?>/assets/css/icons.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="<?=PUBLIC_PATH?>/assets/css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- HOME -->
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="wrapper-page" style="max-width:750px">
+                            <div class="m-t-40 card-box">
+                                <div class="text-center">
+                                    <h2 class="text-uppercase m-t-0 m-b-30">
+                                        <a href="index.html" class="text-success">
+                                            <span><img src="<?=PUBLIC_PATH?>/assets/images/logo_dark.png" alt="" height="30"></span>
+                                        </a>
+                                    </h2>
+                                    <!--<h4 class="text-uppercase font-bold m-b-0">Sign In</h4>-->
+                                </div>
+                                
+                                <div class="account-content">
+                                    <div class="text-center m-b-20">
+                                        <img src="<?=PUBLIC_PATH?>/assets/images/cancel.svg" title="invite.svg" height="80" class="m-t-10">
+                                        <h3 class="expired-title"><?=$caption?></h3>
+                                        <p class="text-muted m-t-30 line-h-24"><?=$message?></p>
+                                    </div>
+
+                                    <div class="row m-t-30">
+                                        <div class="col-xs-12">
+                                            <div class="text-center">			
+                                                <?if(is_array($button_style)){?>
+                                                    <?foreach($button_style as $button){?>
+                                                        <a class="btn btn-lg btn-custom <?=$button['color']?>" href="<?=$button['url']?>">
+                                                            <i class="fa <?=$button['icon']?>"></i>
+                                                            <?=$button['caption']?>
+                                                        </a>&nbsp;
+                                                    <?}?>
+                                                    
+                                                    <a class="btn btn-lg btn-danger" href="<?=$no_cancel_path?>">
+                                                        <i class="fa fa-remove"></i>
+                                                        Cancel
+                                                    </a>
+                                                <?}else{?>
+                                                    <?if($button_style==0){?>
+                                                        <a class="btn btn-lg btn-custom" href="<?=$yes_ok_path?>">
+                                                            <i class="fa fa-arrow-left"></i>
+                                                            Go Back
+                                                        </a>
+
+                                                        <?if(Session::get_state()){?>
+                                                            &nbsp;<a class="btn btn-lg btn-custom" href="<?=APP_PATH?>/dashboard">
+                                                                <i class="fa fa-dashboard"></i>
+                                                                Dashboard
+                                                            </a>
+                                                            
+                                                            &nbsp;<a class="btn btn-lg btn-danger" href="<?=APP_PATH?>/logout">
+                                                                <i class="fa fa-sign-out"></i>
+                                                                Logout
+                                                            </a>
+                                                        <?}?>
+                                                    <?}elseif($button_style==1){?>
+                                                        <a class="btn btn-lg btn-success" href="<?=$yes_ok_path?>">
+                                                            <i class="fa fa-check"></i>
+                                                            Yes
+                                                        </a>&nbsp;
+                                                        
+                                                        <a class="btn btn-lg btn-danger" href="<?=$no_cancel_path?>">
+                                                            <i class="fa fa-remove"></i>
+                                                            Cancel
+                                                        </a>	
+                                                    <?}elseif($button_style==2){?>		
+                                                        <a class="btn btn-lg btn-custom" href="<?=$yes_ok_path?>">
+                                                            <i class="fa fa-check"></i>
+                                                            Ok
+                                                        </a>&nbsp;
+                                                        
+                                                        <a class="btn btn-lg btn-danger" href="<?=APP_PATH?>/logout">
+                                                            <i class="fa fa-sign-out"></i>
+                                                            Logout
+                                                        </a>
+                                                    <?}elseif($button_style==3){?>		
+                                                        <a class="btn btn-lg btn-custom" href="<?=$yes_ok_path?>">
+                                                            <i class="fa fa-check"></i>
+                                                            Ok
+                                                        </a>			
+                                                    <?}?>
+                                                <?}?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <!-- end card-box-->
+                        </div>
+                        <!-- end wrapper -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END HOME -->
+
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="<?=PUBLIC_PATH?>/assets/js/jquery-2.1.4.min.js"></script>
+        <script src="<?=PUBLIC_PATH?>/assets/js/bootstrap.min.js"></script>
+        <script src="<?=PUBLIC_PATH?>/assets/js/jquery.slimscroll.min.js"></script>
+
+        <!-- App Js -->
+        <script src="<?=PUBLIC_PATH?>/assets/js/jquery.app.js"></script>
+    </body>
+</html>

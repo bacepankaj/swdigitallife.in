@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Welcome to <?=APP_NAME?></title>
+
+		<style type="text/css">
+
+		::selection{ background-color: #E13300; color: white; }
+		::moz-selection{ background-color: #E13300; color: white; }
+		::webkit-selection{ background-color: #E13300; color: white; }
+
+		body {
+			background-color: #fff;
+			margin: 40px;
+			font: 13px/20px normal Helvetica, Arial, sans-serif;
+			color: #4F5155;
+		}
+
+		a {
+			color: #003399;
+			background-color: transparent;
+			font-weight: normal;
+		}
+
+		h1 {
+			color: #444;
+			background-color: transparent;
+			border-bottom: 1px solid #D0D0D0;
+			font-size: 19px;
+			font-weight: normal;
+			margin: 0 0 14px 0;
+			padding: 14px 15px 10px 15px;
+		}
+
+		code {
+			font-family: Consolas, Monaco, Courier New, Courier, monospace;
+			font-size: 12px;
+			background-color: #f9f9f9;
+			border: 1px solid #D0D0D0;
+			color: #002166;
+			display: block;
+			margin: 14px 0 14px 0;
+			padding: 12px 10px 12px 10px;
+		}
+
+		#body{
+			margin: 0 15px 0 15px;
+		}
+		
+		p.footer{
+			text-align: right;
+			font-size: 11px;
+			border-top: 1px solid #D0D0D0;
+			line-height: 32px;
+			padding: 0 10px 0 10px;
+			margin: 20px 0 0 0;
+		}
+		
+		#container{			
+			margin: 10px;
+			border: 1px solid #D0D0D0;
+			-webkit-box-shadow: 0 0 8px #D0D0D0;
+		}
+		</style>
+	</head>
+
+	<body>
+		<div id="container">
+			<h1>Controller : <?=$this->controller?>, Mehod : <?=$this->method?>, Parameters : <?print_r($this->parameters)?></h1>
+
+			<div id="body">
+				<p>This is a seperate method rendering a view file</p>
+
+				<p>If you would like to edit this page you'll find it located at:</p>
+				<code>application/views/dashboard/dashboard.html</code>
+
+				<p>The corresponding controller for this page is found at:</p>
+				<code>application/controllers/dashboard/dashboard.php</code>
+
+				<p>Click here to call <a href="<?=APP_PATH?>/dashboard/landing">defaut</a> method.</p>
+				<p>Click here to call <a href="<?=APP_PATH?>/dashboard/other/lazy/boy">other</a> method with 2 parameters.</p>	
+				<p>Click here to call <a href="<?=APP_PATH?>/dashboard/otherview/apple/mango">other</a> method with 2 parameters with different view.</p>
+				<p>Or can be access by <a href="<?=APP_PATH?>/?controller=dashboard&method=otherview&val1=apple&val2=mango"><?=AJAX_BASE_URL?>/?controller=dashboard&method=otherview&val1=apple&val2=mango</a> with 2 parameters with different view.</p>
+				
+				<?if(isset($param1)){?>
+				<p>Parameter 1 : <strong><?=$param1?></strong></p>		
+				<p>Parameter 2 : <strong><?=$param2?></strong></p>		
+				<?}?>	
+						
+				<p>Click here to <a href="<?=APP_PATH?>/logout">Logout</a>.</p>		
+				
+				<p>If you are exploring <?=APP_NAME?> for the very first time, you should start by reading the <a href="<?=APP_PATH?>/user_guide">User Guide</a>.</p>
+			</div>
+
+			<p class="footer">Developed by Orion Software Pvt. Ltd.</p>
+		</div>
+	</body>
+</html>
