@@ -375,34 +375,32 @@
 		* @returns element as string
 		* @author Susanta Das
 		*/
-		public function form_open($element_attributes=null) {			
+		public function form_open($element_attributes=array()) {			
 			//get attributes
 			$attributes = null;
-			
-			if(!empty($element_attributes)) {
-                // default attributes
-                if(!array_key_exists('method', $element_attributes))
-                $element_attributes['method'] = 'POST';
-                            
-                if(!array_key_exists('action', $element_attributes))
-                    $element_attributes['action'] = $this->action_path.'/'.$this->form_action;
-                else
-                    $element_attributes['action'] = $element_attributes['action'];
-                
-                if(!array_key_exists('autocomplete', $element_attributes))
-                $element_attributes['autocomplete'] = 'off';
-                
-                if(!array_key_exists('enctype', $element_attributes))
-                $element_attributes['enctype'] = 'multipart/form-data';
-                
-                if(!array_key_exists('charset', $element_attributes))
-                $element_attributes['charset'] = 'utf-8';
-                                        
-                foreach($element_attributes as $attribute=>$value)
-                {
-                    $attributes .= "$attribute=\"$value\" ";
-                }
-            }
+						
+            // default attributes
+            if(!array_key_exists('method', $element_attributes))
+            $element_attributes['method'] = 'POST';
+                        
+            if(!array_key_exists('action', $element_attributes))
+                $element_attributes['action'] = $this->action_path.'/'.$this->form_action;
+            else
+                $element_attributes['action'] = $element_attributes['action'];
+            
+            if(!array_key_exists('autocomplete', $element_attributes))
+            $element_attributes['autocomplete'] = 'off';
+            
+            if(!array_key_exists('enctype', $element_attributes))
+            $element_attributes['enctype'] = 'multipart/form-data';
+            
+            if(!array_key_exists('charset', $element_attributes))
+            $element_attributes['charset'] = 'utf-8';
+                                    
+            foreach($element_attributes as $attribute=>$value)
+            {
+                $attributes .= "$attribute=\"$value\" ";
+            }            
 						
 			//return element
 			return '<form '.rtrim($attributes, ' ').'><input type="hidden" name="csrfToken" value="'.Session::get('token').'"><input type="hidden" name="returnUrl" value="'.urlencode(BASE_URI).'">';

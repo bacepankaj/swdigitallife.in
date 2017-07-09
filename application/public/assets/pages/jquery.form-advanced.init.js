@@ -6,11 +6,15 @@
 */
 
 // Select2
-$(".select2").select2();
+//$(".select2").select2();
 
+// Date Picker
+jQuery('.datepicker').datepicker({
+    format: "dd-mm-yyyy"
+});
 
 // Time Picker
-jQuery('#timepicker').timepicker({
+/*jQuery('#timepicker').timepicker({
     defaultTIme: false
 });
 jQuery('#timepicker2').timepicker({
@@ -27,15 +31,14 @@ $('.colorpicker-default').colorpicker({
 });
 $('.colorpicker-rgba').colorpicker();
 
-// Date Picker
-jQuery('#datepicker').datepicker();
+
 jQuery('#datepicker-autoclose').datepicker({
     autoclose: true,
     todayHighlight: true
 });
 jQuery('#datepicker-inline').datepicker();
 jQuery('#datepicker-multiple-date').datepicker({
-    format: "mm/dd/yyyy",
+    format: "dd-mm-yyyy",
     clearBtn: true,
     multidate: true,
     multidateSeparator: ","
@@ -134,4 +137,4 @@ $('#reportrange').daterangepicker({
 }, function (start, end, label) {
     console.log(start.toISOString(), end.toISOString(), label);
     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-});
+});*/
