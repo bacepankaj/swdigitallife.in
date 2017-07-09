@@ -9,8 +9,10 @@
         <div class="p-0 text-center">
             <div class="member-card">
                 <div class="thumb-xl member-thumb m-b-10 center-block">
+                    <?if($profile->id==Session::get('user_id')){?>
                     <input type="file" name="avatar" class="hide">
-                    <img id="avatar" src="<?=$this->form->avatar($profile->id)?>" class="img-circle img-thumbnail session-avatar" alt="<?=$profile->name?>">
+                    <?}?>
+                    <img id="avatar" src="<?=$this->form->avatar($profile->id)?>" class="img-circle img-thumbnail session-avatar" role="button" alt="<?=$profile->name?>">
                     <i class="mdi mdi-star-circle member-star text-success" title="verified user"></i>
                 </div>
 
@@ -46,7 +48,7 @@
             </a>
         </li>
         
-        <?if(!isset($this->parameters['id'])){?>
+        <?if($profile->id==Session::get('user_id')){?>
         <li class="<?=$personal_details?>">
             <a href="?tab=personal_details">
                 Personal Details
@@ -418,6 +420,7 @@
             });
         });
         
+        <?if($profile->id==Session::get('user_id')){?>
         $('#avatar').click(function(){
             $('[name=avatar]').click();
         });
@@ -445,5 +448,6 @@
                 }		
             });
         });
+        <?}?>
     }
 </script>
