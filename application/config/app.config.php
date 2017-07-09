@@ -11,7 +11,7 @@
 	/**
 	* Application Name
 	*/
-	define ('APP_NAME', 'Emerald');
+	define ('APP_NAME', 'Smart Win Digital Life');
 	
 	/**
 	* Application Version
@@ -21,7 +21,7 @@
 	/**
 	* Application Database
 	*/
-	define ('APP_DATABASE', false);
+	define ('APP_DATABASE', true);
 	
 	/**
 	* Database Driver
@@ -41,17 +41,17 @@
 	/**
 	* Database Name
 	*/
-	define ('DATABASE', "");	
+	define ('DATABASE', "swdigitallife");	
 
 	/**
 	* Database User
 	*/
-	define ('DBUSER', "");
+	define ('DBUSER', "swdigitallife");
 
 	/**
 	* Database Password
 	*/
-	define ('DBPASSWORD', "");
+	define ('DBPASSWORD', "NSwFyuJWxUeja4B5");
 						
 	/**
 	* Master Password
@@ -116,5 +116,5 @@
 	/**
 	* Avatar Path
 	*/
-	define ('AVATAR_PATH', 'application/public/assets/avatars');
+	define ('AVATAR_PATH', 'application/public/avatars');
 ?>

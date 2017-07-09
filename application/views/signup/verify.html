@@ -22,12 +22,13 @@
     </head>
 
     <body>
+
         <!-- HOME -->
         <section>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="wrapper-page">  
+                        <div class="wrapper-page">
                             <div class="m-t-40 card-box">
                                 <div class="text-center">
                                     <h2 class="text-uppercase m-t-0 m-b-30">
@@ -39,28 +40,55 @@
                                 </div>
                                 
                                 <div class="account-content">
-                                    <?=$this->form->form_open(array('class'=>'form-horizontal'))?>
+                                    <?=$this->form->form_open(array('class'=>'form-horizontal', 'action'=>$this->form->action_path.'/otp_verification'))?>
+
                                         <div class="form-group m-b-20">
                                             <div class="col-xs-12">
-                                                <label for="emailaddress">User Id or Mobile No</label>
-                                                <input class="form-control" type="text" name="username" required="" placeholder="Enter youe User Id or Mobile No">
+                                                <label for="username">Name</label>
+                                                <input class="form-control" type="text" name="name" id="username" required="" placeholder="Fullname" readonly="readonly" value="<?=$data->name?>">
+                                                <input class="form-control" type="hidden" name="verificationCode" readonly="readonly" value="<?=$this->functions->encrypt_decrypt('encrypt', json_encode($data))?>">
                                             </div>
                                         </div>
 
                                         <div class="form-group m-b-20">
                                             <div class="col-xs-12">
-                                                <a href="pages-forget-password.html" class="text-muted pull-right font-14" tabIndex="-1">Forgot your password?</a>
+                                                <label for="mobile">Mobile No</label>
+                                                
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                    <input type="text" name="mobile" id="mobile" class="form-control" required="" size="10" placeholder="XXXXXXXXXX" readonly="readonly" value="<?=$data->mobile?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group m-b-20">
+                                            <div class="col-xs-12">
+                                                <a href="#" class="text-muted pull-right font-14" onclick="location.reload();">OTP not received? Click to resend OTP</a>
+                                                <label for="otp">OTP</label>
+                                                <input class="form-control" type="text" name="otp" id="otp" required="" size="6" placeholder="Enter the OTP send to your mobile no <?=$data->mobile?>">                                                
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group m-b-20">
+                                            <div class="col-xs-12">
                                                 <label for="password">Password</label>
-                                                <input class="form-control" type="password" required="" name="password" placeholder="Enter your password">
+                                                <input class="form-control" type="password" name="password" id="password" required="" placeholder="Password" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group m-b-20">
+                                            <div class="col-xs-12">
+                                                <label for="confirm_password">Confirm Password</label>
+                                                <input class="form-control" data-parsley-equalto="#password" type="password" id="confirm_password" required="" placeholder="Confirm Password" autocomplete="off">
                                             </div>
                                         </div>
 
                                         <div class="form-group m-b-30">
                                             <div class="col-xs-12">
                                                 <div class="checkbox checkbox-primary">
-                                                    <input id="checkbox5" type="checkbox">
+                                                    <input id="checkbox5" name="accept_tnc" type="checkbox" required="">
                                                     <label for="checkbox5">
-                                                        Remember me
+                                                        I accept <a href="#">Terms and Conditions</a>
                                                     </label>
                                                 </div>
                                             </div>
@@ -68,20 +96,21 @@
 
                                         <div class="form-group account-btn text-center m-t-10">
                                             <div class="col-xs-12">
-                                                <button class="btn btn-lg btn-custom btn-block" type="submit">Sign In</button>
+                                                <button class="btn btn-lg btn-custom btn-block" type="submit">Sign Up Free</button>
                                             </div>
                                         </div>
 
                                     <?=$this->form->form_close()?>
 
                                     <div class="clearfix"></div>
+
                                 </div>
                             </div>
                             <!-- end card-box-->
 
                             <div class="row m-t-50">
                                 <div class="col-sm-12 text-center">
-                                    <p class="text-muted">Don't have an account? <a href="<?=APP_PATH?>/signup" class="text-dark m-l-5" tabIndex="-1">Sign Up</a></p>
+                                    <p class="text-muted">Already have an account? <a href="<?=APP_PATH?>/login" class="text-dark m-l-5">Sign In</a></p>
                                 </div>
                             </div>
                         </div>
@@ -92,6 +121,8 @@
         </section>
         <!-- END HOME -->
 
+
+
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<?=PUBLIC_PATH?>/assets/js/bootstrap.min.js"></script>
@@ -99,5 +130,6 @@
 
         <!-- App Js -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery.app.js"></script>
+
     </body>
 </html>

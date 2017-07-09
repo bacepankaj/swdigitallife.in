@@ -2,11 +2,15 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>SimpleAdmin - Responsive Admin Dashboard Template</title>
+        <title><?=APP_NAME?> - <?=$caption?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        
+        <link rel="mask-icon" href="<?=PUBLIC_PATH?>/assets/images/favicon.ico" color="#8f0000">
         <link rel="shortcut icon" href="<?=PUBLIC_PATH?>/assets/images/favicon.ico">
 
         <!-- Bootstrap core CSS -->
@@ -36,7 +40,7 @@
                                 
                                 <div class="account-content">
                                     <div class="text-center m-b-20">
-                                        <img src="<?=PUBLIC_PATH?>/assets/images/cancel.svg" title="invite.svg" height="80" class="m-t-10">
+                                        <img src="<?=PUBLIC_PATH?>/assets/images/<?=$icon_class?>" title="invite.svg" height="80" class="m-t-10">
                                         <h3 class="expired-title"><?=$caption?></h3>
                                         <p class="text-muted m-t-30 line-h-24"><?=$message?></p>
                                     </div>

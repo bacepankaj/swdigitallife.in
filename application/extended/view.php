@@ -16,6 +16,12 @@
 		*/
 		function __construct() {
 			parent::__construct();
+                        
+            // set title with controller
+            $this->title = ucwords(str_replace('_', ' ', $this->controller));
+            
+            // set title with method
+            if(!empty($this->method)) $this->title .= ' - '.ucwords(str_replace('_', ' ', $this->method));
 		}
 	}
 ?>

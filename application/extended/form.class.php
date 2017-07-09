@@ -23,5 +23,37 @@
 			else
 				$this->disable = false;
 		}
+        
+        /**
+		* Get Avatar Image
+		*
+		* Function avatar
+		* @param $user_id as string
+		* @param $exists as boolean byref
+		* @author Susanta Das
+		*/
+		public function avatar($user_id, &$exists) {
+			if(file_exists(AVATAR_PATH.'/'.$user_id.'.png'))
+			{
+				// get user avatar version
+                $user = ORM::for_table('user')->find_one($user_id);
+                
+                // get thumbs
+				$thumb = AJAX_BASE_URL.'/'.AVATAR_PATH.'/'.$user_id.'.png?v='.$user->avatar_version;
+				
+				// avatar exists
+				$exists = true;
+			}
+			else
+			{
+				// get thumbs
+				$thumb = AJAX_BASE_URL.'/'.AVATAR_PATH.'/avatar.png';				
+				
+				// avatar exists
+				$exists = false;
+			}
+			
+			return $thumb;
+		}
 	}
 ?>

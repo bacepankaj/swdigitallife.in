@@ -17,7 +17,28 @@
 		function __construct($check_session=true, $check_privilege=true) {			
 			parent::__construct($check_session);
 			
-			// default module redirection after login	
+			// check for user login status
+			if(!($this->controller=='index' || $this->controller=='login' || $this->controller=='profile'  || $this->controller=='logout' || Session::get('is_admin')))
+			{
+				if(Session::get_state())
+				{   
+                    // get user_profile
+                    $user_profile = $this->model->use_table('user_profile')->find_one(Session::get('user_id'));
+                    
+                    // check user profile not exists
+                    if(!is_object($user_profile))
+                    {
+                       // redirect to profile pending is user is not active
+                       $this->redirect('profile');
+                    } 
+                    							
+					// redirect to account_activation_pending is user is not active
+					//if($login_status=='Inactive')
+					//$this->redirect('signup/account_activation_pending');
+				}
+			}
+            
+            // default module redirection after login	
 			$redirect_to_after_login = Session::get('redirect_to_after_login');
 							
 			// get if empty

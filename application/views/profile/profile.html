@@ -1,0 +1,449 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="header-title m-t-0 m-b-20">Profile</h4>
+    </div>
+</div> <!-- end row -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="p-0 text-center">
+            <div class="member-card">
+                <div class="thumb-xl member-thumb m-b-10 center-block">
+                    <input type="file" name="avatar" class="hide">
+                    <img id="avatar" src="<?=$this->form->avatar($profile->id)?>" class="img-circle img-thumbnail session-avatar" alt="<?=$profile->name?>">
+                    <i class="mdi mdi-star-circle member-star text-success" title="verified user"></i>
+                </div>
+
+                <div class="">
+                    <h4 class="m-b-5"><?=$profile->name?></h4>
+                    <p class="text-muted">User Id : <?=$profile->user_name?></p>
+                </div>
+
+                <p class="text-muted m-t-10 hide">
+                    Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
+                </p>
+
+                <button type="button" class="btn btn-primary m-t-10 hide">Follow</button>
+                <button type="button" class="btn btn-custom m-t-10 hide">Message</button>
+            </div>
+        </div> <!-- end card-box -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<?
+    // default tab
+    $this->parameters['tab'] = (!isset($this->parameters['tab']) ? 'personal_information' : $this->parameters['tab']);
+    
+    // create active tab
+    eval('$'.$this->parameters['tab'].'="active";');
+?>
+
+<div class="m-t-30">
+    <ul class="nav nav-tabs tabs-bordered">
+        <li class="<?=$personal_information?>">
+            <a href="?tab=personal_information">
+                Profile
+            </a>
+        </li>
+        
+        <?if(!isset($this->parameters['id'])){?>
+        <li class="<?=$personal_details?>">
+            <a href="?tab=personal_details">
+                Personal Details
+            </a>
+        </li>
+        
+        <li class="<?=$communication_details?>">
+            <a href="?tab=communication_details">
+                Communication Details
+            </a>
+        </li>
+        
+        <li class="<?=$bank_details?>">
+            <a href="?tab=bank_details">
+                Bank Details
+            </a>
+        </li>
+        <?}?>
+    </ul>
+    
+    <div class="tab-content">
+        <!-- Personal-Information -->
+        <div class="tab-pane active">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default panel-fill">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?=ucwords(str_replace('_', ' ', $this->parameters['tab']))?></h3>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <?=$this->form->form_open()?>
+                                <input type="hidden" name="id" value="<?=$profile->id?>">
+                                <?if($this->parameters['tab']=='personal_information'){?>
+                                    <div class="m-b-20">
+                                        <strong>Full Name</strong>
+                                        <br>
+                                        <p class="text-muted"><?=$profile->name?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20">
+                                        <strong>User Id</strong>
+                                        <br>
+                                        <p class="text-muted"><?=$profile->user_name?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20">
+                                        <strong>Gender</strong>
+                                        <br>
+                                        <p class="text-muted"><?=(empty($profile->gender) ? 'Unknown' : $profile->gender)?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20">
+                                        <strong>Mobile</strong>
+                                        <br>
+                                        <p class="text-muted"><?=$profile->mobile?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20 hide">
+                                        <strong>Email</strong>
+                                        <br>
+                                        <p class="text-muted">johnath@domain.com</p>
+                                    </div>
+                                    
+                                    <div class="m-b-20 m-b-0">
+                                        <strong>Referal Id</strong>
+                                        <br>
+                                        <?if(!empty($profile->reffered_by)){?>
+                                        <p class="text-muted"><?=$profile->refferal_id?></p>
+                                        <?}else{?>
+                                        <p class="text-muted">Not Available</p>
+                                        <?}?>
+                                    </div>
+                                    
+                                    <div class="about-info-p m-b-0">
+                                        <strong>Referal Name</strong>
+                                        <br>
+                                        <?if(!empty($profile->reffered_by)){?>
+                                        <p class="text-muted"><a href="<?=APP_PATH?>/profile?id=<?=$profile->reffered_by?>"><?=$profile->refferal_name?></a></p>
+                                        <?}else{?>
+                                        <p class="text-muted">Not Available</p>
+                                        <?}?>
+                                    </div>
+                                <?}elseif($this->parameters['tab']=='personal_details'){?>
+                                    <div class="form-group">
+                                        <label for="referal_id">Referal ID</label>
+                                        <input type="text" placeholder="Referal ID" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="reffered_by">Referal Name</label>
+                                        <input type="text" placeholder="Referal Name" id="reffered_by" class="form-control" readonly="readonly" value="<?=$profile->refferal_name?>">
+                                        <input type="hidden" name="reffered_by" class="form-control" readonly="readonly" value="<?=$profile->reffered_by?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="father_husband_name">Father / Husband Name</label>
+                                        <input type="text" name="father_husband_name" placeholder="Father / Husband Name" id="father_husband_name" class="form-control" value="<?=$profile->father_husband_name?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label style="padding-right:10px">Gender</label>
+                                        
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="gender_male" value="Male" name="gender" <?=($profile->gender=='Male' ? 'checked="checked"' : null)?>>
+                                            <label for="gender_male"> Male </label>
+                                        </div>
+                                        
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="gender_female" value="Female" name="gender" <?=($profile->gender=='Female' ? 'checked="checked"' : null)?>>
+                                            <label for="gender_female"> Female </label>
+                                        </div>
+                                        
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="gender_others" value="Others" name="gender" <?=($profile->gender=='Others' ? 'checked="checked"' : null)?>>
+                                            <label for="gender_others"> Others </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="pan_no">Pan Number</label>
+                                        <input type="text" name="pan_no" placeholder="12 Characters" id="pan_no" class="form-control" value="<?=$profile->pan_no?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Pan_Number">Date of Birth</label>
+                                        <div class="input-group">
+                                         <input type="text" name="dob" class="form-control" placeholder="dd-mm-yyyy" id="datepicker" value="<?=$this->functions->date_format($profile->dob, 'd-m-Y')?>">
+                                         <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                        </div>
+                                    </div>
+                                <?}elseif($this->parameters['tab']=='communication_details'){?>
+                                    <div class="form-group">
+                                        <label for="House No./Flat No">House No. / Flat No.</label>
+                                        <input type="text" placeholder="house no." id="House No./Flat No" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Street / Road Name">Street / Road Name</label>
+                                        <input type="text" placeholder="street or road name" id="Street / Road Name" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="State">State</label>
+                                        <select class="form-control">
+                                            <option>select State</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="District">District</label>
+                                        <select class="form-control">
+                                            <option>select Districtict</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="City">City</label>
+                                        <select class="form-control">
+                                            <option>select City</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Postoffice">Post Office</label>
+                                        <input type="text" placeholder="postoffice" id="Postoffice" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="PinNumber">Postal Code</label>
+                                        <input type="text" placeholder="pin number" id="PinNumber" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Mobile">Mobile</label>
+                                        <input type="text" placeholder="mobile" id="Mobile" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="AlternateNumber">Alternate Number</label>
+                                        <input type="text" placeholder="Alternate Contact Number" id="AlternateNumber" class="form-control">
+                                    </div>
+                                <?}elseif($this->parameters['tab']=='bank_details'){?>
+                                    <div class="form-group">
+                                        <label for="BankName">BankName:</label>
+                                        <input type="text" placeholder="BankName" id="BankName" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Bank Branch State">Bank Branch State:</label>
+                                        <select class="form-control">
+                                            <option>select State</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Bank Branch">Bank Branch:</label>
+                                        <input type="text" placeholder="Bank Branch" id="Bank Branch" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Account Type">Account Type:</label>
+                                        <input type="text" placeholder="Account Type" id="Account Type" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="IFSC Code">IFSC Code:</label>
+                                        <input type="text" placeholder="IFSC Code" id="IFSC Code" class="form-control">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Bank A/C No">Bank A/C No:</label>
+                                        <input type="text" placeholder="Bank A/C No" id="Bank A/C No" class="form-control">
+                                    </div>                                        
+                                <?}?>
+                                
+                                <?if($this->parameters['tab']!='personal_information'){?>
+                                <button class="btn btn-primary waves-effect waves-light w-md pull-right" type="submit">Save</button>
+                                <?}?>
+                            <?=$this->form->form_close()?>
+                        </div>
+                    </div>                        
+
+                    <!-- Social -->
+                    <div class="panel panel-default panel-fill hide">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Social</h3>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <ul class="social-links list-inline m-b-0">
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Skype"><i class="fa fa-skype"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Social -->
+                </div>
+
+                <div class="col-md-8 hide">
+                    <!-- Personal-Information -->
+                    <div class="panel panel-default panel-fill">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Biography</h3>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <h5 class="header-title text-uppercase">About</h5>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                industry. Lorem Ipsum has been the industry's standard dummy
+                                text ever since the 1500s, when an unknown printer took a galley
+                                of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into
+                                electronic typesetting, remaining essentially unchanged.</p>
+
+                            <p><strong>But also the leap into electronic typesetting, remaining
+                                essentially unchanged.</strong></p>
+
+                            <p>It was popularised in the 1960s with the release of Letraset
+                                sheets containing Lorem Ipsum passages, and more recently with
+                                desktop publishing software like Aldus PageMaker including
+                                versions of Lorem Ipsum.</p>
+
+                            <div class="hide">                                
+                                <h5 class="header-title text-uppercase m-t-30 m-b-20">Skills</h5>
+
+                                <div class="m-b-15">
+                                    <h5>Angular Js <span
+                                            class="pull-right">60%</span></h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 60%">
+                                            <span class="sr-only">60% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-15">
+                                    <h5>Javascript <span
+                                            class="pull-right">90%</span></h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="90"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 90%">
+                                            <span class="sr-only">90% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-15">
+                                    <h5>Wordpress <span
+                                            class="pull-right">80%</span></h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="80"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 80%">
+                                            <span class="sr-only">80% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-0">
+                                    <h5>HTML5 &amp; CSS3 <span class="pull-right">95%</span>
+                                    </h5>
+                                    <div class="progress m-b-0">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="95"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 95%">
+                                            <span class="sr-only">95% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <!-- Personal-Information -->  
+    </div>
+</div>
+
+<script>
+    window.onload = function(){		
+        $('#referal_id').blur(function(){
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                url: "<?=AJAX_URL?>/get_referal_details/" + $('#referal_id').val(),
+                success: function(r){	
+                    $('#reffered_by').val(r.name);
+                    $('[name=reffered_by]').val(r.id);
+                }		
+            });
+        });
+        
+        $('#avatar').click(function(){
+            $('[name=avatar]').click();
+        });
+        
+        $('[name=avatar]').change( function(e) {           
+            // create form element
+            var formdata = new FormData();
+            
+            // append form data
+            formdata.append('id', '<?=Session::get('user_id')?>');
+            formdata.append('avatar', e.target.files[0]);            
+            formdata.append('csrfToken', '<?=Session::get('token')?>');            
+            
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                url: "<?=AJAX_URL?>/avatar_update",
+                processData: false,
+                contentType: false,               
+                cache: false,       
+                data: formdata,
+                success: function(r){	
+                    $('.session-avatar').attr('src', r.url);
+                }		
+            });
+        });
+    }
+</script>

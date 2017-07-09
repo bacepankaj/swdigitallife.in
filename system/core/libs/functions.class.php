@@ -30,8 +30,7 @@
 		* @returns string
 		* @author Susanta Das
 		*/
-		public function GenerateRandomString($length = 10) {
-			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		public function GenerateRandomString($length = 10, $characters='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') {
 			$randomString = '';
 			for ($i = 0; $i < $length; $i++) {
 				$randomString .= $characters[rand(0, strlen($characters) - 1)];
@@ -95,9 +94,9 @@
 			$d = strlen($generate_date) + 1;
 			
 			if($date)
-				$sql = "SELECT if(max(substr($fieldname, ".($l + $d).", 4)) is null, concat('".$generate_date."', '0001'), concat('".$generate_date."', lpad(max(substr($fieldname, ".($l + $d).", 4)) + 1, 4, '0'))) maxid FROM $tablename where substr($fieldname, ".($l + 1).", 4) = '".$generate_date."' and substr($fieldname, 1, $l) = '$prefix' $company_cond";
+				$sql = "SELECT if(max(substr($fieldname, ".($l + $d).", 4)) is null, concat('".$generate_date."', '00001'), concat('".$generate_date."', lpad(max(substr($fieldname, ".($l + $d).", 5)) + 1, 5, '0'))) maxid FROM $tablename where substr($fieldname, ".($l + 1).", 4) = '".$generate_date."' and substr($fieldname, 1, $l) = '$prefix' $company_cond";
 			else
-				$sql = "SELECT if(max(substr($fieldname, ".($l + $d).", 4)) is null, concat('".$generate_date."', '0001'), concat('".$generate_date."', lpad(max(substr($fieldname, ".($l + $d).", 4)) + 1, 4, '0'))) maxid FROM $tablename where substr($fieldname, 1, $l) = '$prefix' $company_cond";
+				$sql = "SELECT if(max(substr($fieldname, ".($l + $d).", 4)) is null, concat('".$generate_date."', '00001'), concat('".$generate_date."', lpad(max(substr($fieldname, ".($l + $d).", 5)) + 1, 5, '0'))) maxid FROM $tablename where substr($fieldname, 1, $l) = '$prefix' $company_cond";
 			
 			// get recordset
 			$max = $rs->raw_query($sql)->find_one();
@@ -136,8 +135,12 @@
 		* @author Susanta Das
 		*/	
 		public function CheckValidUUID($uuid)
-		{			
-			return !empty($uuid) && preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/i', $uuid);					
+		{	
+			if(preg_match('/^\{?[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\}?$/', $uuid)) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 		
 		/**
@@ -313,7 +316,7 @@
 		* @returns string
 		* @author Susanta Das
 		*/
-		public function date_format($date, $format='Y-m-d', $show_current_date=false)
+		function date_format($date, $format='Y-m-d', $show_current_date=false)
 		{	
 			//if(!empty($date))
 			if(!empty($date) && ($date + 0) > 0)
@@ -323,7 +326,7 @@
 				if($show_current_date)
 					return date($format);	
 				else
-					return preg_replace('/[0-9]/s', '0', date($format));			
+					return '';//return preg_replace('/[0-9]/s', '0', date($format));								
 			}
 		}
 		

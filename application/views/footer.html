@@ -5,11 +5,11 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="pull-right hidden-xs">
+                                    <div class="pull-right hidden-xs hide">
                                         Project Completed <strong class="text-custom">43%</strong>.
                                     </div>
                                     <div>
-                                        <strong>Simple Admin</strong> - Copyright &copy; 2017
+                                        <strong><?=APP_NAME?></strong> - Copyright &copy; 2017
                                     </div>
                                 </div>
                             </div>
@@ -20,16 +20,38 @@
                 <!-- End #page-right-content -->
 
                 <div class="clearfix"></div>
-
             </div>
             <!-- end .page-contentbar -->
         </div>
         <!-- End #page-wrapper -->
+        
+        <!-- PAGE LOADING CONTENT -->
+        <div id="ajax_loader" style="text-align:center;display:none;position:fixed;background:#fff;top:0;left:0;z-index:90000;width:100%;overflow:hidden;height:100%;opacity:.65">
+            <div style="display:table-cell;vertical-align:middle;opacity:1">
+                <h1 class="grey lighter smaller">
+                    <span class="red bigger-125">
+                        <i class="fa fa-gear fa-spin orange bigger-125"></i>		
+                    </span>
+                    
+                    <span class="blue">&nbsp;Loading...</span>
+                </h1>
+            </div>
+        </div>
+        <!-- PAGE LOADING CONTENT -->
 
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<?=PUBLIC_PATH?>/assets/js/bootstrap.min.js"></script>
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery.slimscroll.min.js"></script>
+        <script src="<?=PUBLIC_PATH?>/assets/plugins/select2/js/select2.min.js"></script>
+               
+        <!--Morris Chart-->
+		<script src="<?=PUBLIC_PATH?>/assets/plugins/morris/morris.min.js"></script>
+		<script src="<?=PUBLIC_PATH?>/assets/plugins/raphael/raphael-min.js"></script>
+
+        <!-- Dashboard init -->
+		<script src="<?=PUBLIC_PATH?>/assets/pages/jquery.dashboard.js"></script>
+        <script src="<?=PUBLIC_PATH?>/assets/pages/jquery.form-advanced.init.js"></script>
 
         <!-- App Js -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery.app.js"></script>

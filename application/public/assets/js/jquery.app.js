@@ -64,6 +64,42 @@
             }
         });
     }
+    
+    function ajaxSetup() {
+        // global ajax setup
+        $.ajaxSetup({			
+            async: true,
+            beforeSend: function(){
+                /*if(!check_session())
+                {
+                    bootbox.alert('Oops! your session has expired. Please <a href="<?=$redirectUrl?>">click</a> to login again');
+                    return false;
+                }
+                else*/
+                $("#ajax_loader").css("display", "table").fadeIn('fast');					
+            },
+            complete: function(){				
+                $("#ajax_loader").fadeOut('fast');
+            }
+        });
+    }
+    
+    // check session
+    function check_session(){
+        var state = true;
+        
+        $.ajax({					
+            async: false,
+            url: "<?=AJAX_BASE_URL?>/login/check_session",				
+            success: function(r){				
+                state = r;
+            },
+            beforeSend: function(){},
+            complete: function(){}		
+        });
+        
+        return state;
+    }
 
     function init() {
         initSlimscroll();
@@ -71,6 +107,7 @@
         initLeftMenuCollapse();
         initComponents();
         initActiveMenu();
+        ajaxSetup();
     }
 
     init();

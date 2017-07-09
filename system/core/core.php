@@ -45,7 +45,10 @@
 			// include extended function class
 			require APPLICATION_PATH."/extended/functions.class.php";
 			
-			// include session class
+			// include image class
+			require "libs/image.class.php";
+            
+            // include session class
 			require "libs/session.class.php";
 					
 			// include cookies class

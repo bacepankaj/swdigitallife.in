@@ -403,7 +403,7 @@
 			}
 						
 			//return element
-			return '<form '.rtrim($attributes, ' ').'><input type="hidden" name="csrfToken" value="'.Session::get('token').'">';
+			return '<form '.rtrim($attributes, ' ').'><input type="hidden" name="csrfToken" value="'.Session::get('token').'"><input type="hidden" name="returnUrl" value="'.urlencode(BASE_URI).'">';
 		}
 		
 		/**

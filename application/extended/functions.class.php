@@ -17,5 +17,22 @@
 		function __construct() {						
 			parent::__construct();			
 		}
+        
+        function send_msg($phone_no, $message){
+            //Dear XXXX Thank to register with XXXX your Id no is XXXX
+            //Dear XXXX Your Id no is XXXX This Id will be used as an referral. Thank you for choosing XXXX
+            //Dear XXXX Thank you for choosing XXXX
+            
+            //echo $message;
+            
+            // filter msg
+            $message = str_replace(' ', '%20', $message);
+            
+            // set curl url
+            $url = "http://59.162.167.52/api/MessageCompose?admin=t9infomedia@gmail.com&user=smart@t9.com:Prakash@1705&senderID=SMAART&receipientno=$phone_no&msgtxt=$message&state=4";
+             
+            // call api
+            file_get_contents($url);
+        }
 	}
 ?>

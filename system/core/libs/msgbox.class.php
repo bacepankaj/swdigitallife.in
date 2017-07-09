@@ -37,7 +37,7 @@
 		* @returns none
 		* @author Susanta Das
 		*/
-		public static function show($message, $caption='Message', $suggestions=null, $window=true, $button_style=0, $icon_class='fa fa-warning text-warning', $yes_ok_path=REQUEST_URL, $no_cancel_path=RETURN_URL) 
+		public static function show($message, $caption='Message', $suggestions=null, $window=true, $button_style=0, $icon_class='cancel.svg', $yes_ok_path=REQUEST_URL, $no_cancel_path=RETURN_URL) 
 		{	
 			if(is_object(self::$viewobj))
 			{
