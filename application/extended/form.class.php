@@ -32,7 +32,7 @@
 		* @param $exists as boolean byref
 		* @author Susanta Das
 		*/
-		public function avatar($user_id, &$exists) {
+		public function avatar($user_id, &$exists=null) {
 			if(file_exists(AVATAR_PATH.'/'.$user_id.'.png'))
 			{
 				// get user avatar version
