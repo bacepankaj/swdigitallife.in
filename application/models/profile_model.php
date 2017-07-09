@@ -41,7 +41,7 @@
             {
                 // get user rs
                 $user = $this->use_table('user')->find_one($id);
-                $user->reffered_by = (empty($reffered_by) ? null : $reffered_by);
+                $user->reffered_by = ((empty($reffered_by) || $id==$reffered_by) ? null : $reffered_by);
                 $user->save();
                 
                 // unset reffered_by
