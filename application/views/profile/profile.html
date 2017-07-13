@@ -1,3 +1,17 @@
+<style>
+    .cloned {
+        padding: 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 4px;
+        background-color: #f5f5f5;
+        margin-bottom: 20px;
+    }    
+    
+    #cloned_container > .cloned:first-child > .remove {
+        display: none;
+    }
+</style>
+
 <div class="row">
     <div class="col-sm-12">
         <h4 class="header-title m-t-0 m-b-20">Profile</h4>
@@ -82,6 +96,7 @@
                         <div class="panel-body">
                             <?=$this->form->form_open()?>
                                 <input type="hidden" name="id" value="<?=$profile->id?>">
+                                <input type="hidden" name="tab" value="<?=$this->parameters['tab']?>">
                                 <?if($this->parameters['tab']=='personal_information'){?>
                                     <div class="m-b-20">
                                         <strong>Full Name</strong>
@@ -174,115 +189,110 @@
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="Pan_Number">Date of Birth</label>
+                                        <label for="Date of Birth">Date of Birth</label>
                                         <div class="input-group">
                                          <input type="text" name="dob" class="form-control datepicker" placeholder="dd-mm-yyyy" value="<?=$this->functions->date_format($profile->dob, 'd-m-Y')?>">
                                          <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
                                         </div>
                                     </div>
+									<div class="form-group">
+                                        <label for="nominee_name">Nominee Name</label>
+                                        <input type="text" name="nominee_name" placeholder="Nominee Name" id="nominee_name" class="form-control" value="<?=$profile->nominee_name?>">
+                                    </div>
+									<div class="form-group">
+                                        <label for="nominee_dob">Nominee Date of Birth</label>
+                                        <div class="input-group">
+                                         <input type="text" name="nominee_dob" class="form-control datepicker" placeholder="Nominee Date of Birth" value="<?=$this->functions->date_format($profile->dob, 'd-m-Y')?>">
+                                         <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                        </div>
+                                    </div>
                                 <?}elseif($this->parameters['tab']=='communication_details'){?>
                                     <div class="form-group">
-                                        <label for="House No./Flat No">House No. / Flat No.</label>
-                                        <input type="text" placeholder="house no." id="House No./Flat No" class="form-control">
+                                        <label for="house_flat_no">House No. / Flat No.</label>
+                                        <input type="text" name="house_flat_no" placeholder="House No. / Flat No." id="house_flat_no" class="form-control" value="<?=$profile->house_flat_no?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="Street / Road Name">Street / Road Name</label>
-                                        <input type="text" placeholder="street or road name" id="Street / Road Name" class="form-control">
+                                        <label for="street_road_name">Street / Road Name</label>
+                                        <input type="text" name="street_road_name" placeholder="Street / Road Name" id="street_road_name" class="form-control" value="<?=$profile->street_road_name?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="State">State</label>
-                                        <select class="form-control">
-                                            <option>select State</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label for="state">State</label>
+                                        <input type="text" name="state" placeholder="State" id="state" class="form-control" value="<?=$profile->state?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="District">District</label>
-                                        <select class="form-control">
-                                            <option>select Districtict</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label for="district">District</label>
+                                        <input type="text" name="district" placeholder="District" id="district" class="form-control" value="<?=$profile->district?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="City">City</label>
-                                        <select class="form-control">
-                                            <option>select City</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
+                                        <label for="city">City</label>
+                                        <input type="text" name="city" placeholder="City" id="city" class="form-control" value="<?=$profile->city?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="Postoffice">Post Office</label>
-                                        <input type="text" placeholder="postoffice" id="Postoffice" class="form-control">
+                                        <label for="post_office">Post Office</label>
+                                        <input type="text" name="post_office" placeholder="Post Office" id="post_office" class="form-control" value="<?=$profile->post_office?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="PinNumber">Postal Code</label>
-                                        <input type="text" placeholder="pin number" id="PinNumber" class="form-control">
+                                        <label for="pin_code">Postal Code</label>
+                                        <input type="text" name="pin_code" placeholder="Postal Code" id="pin_code" class="form-control" value="<?=$profile->pin_code?>">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="Mobile">Mobile</label>
-                                        <input type="text" placeholder="mobile" id="Mobile" class="form-control">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="AlternateNumber">Alternate Number</label>
-                                        <input type="text" placeholder="Alternate Contact Number" id="AlternateNumber" class="form-control">
+                                        <label for="alternate_no">Alternate Number</label>
+                                        <input type="text" name="alternate_no" placeholder="Alternate Number" id="alternate_no" class="form-control" value="<?=$profile->alternate_no?>">
                                     </div>
                                 <?}elseif($this->parameters['tab']=='bank_details'){?>
-                                    <div class="form-group">
-                                        <label for="BankName">BankName:</label>
-                                        <input type="text" placeholder="BankName" id="BankName" class="form-control">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="Bank Branch State">Bank Branch State:</label>
-                                        <select class="form-control">
-                                            <option>select State</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="Bank Branch">Bank Branch:</label>
-                                        <input type="text" placeholder="Bank Branch" id="Bank Branch" class="form-control">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="Account Type">Account Type:</label>
-                                        <input type="text" placeholder="Account Type" id="Account Type" class="form-control">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="IFSC Code">IFSC Code:</label>
-                                        <input type="text" placeholder="IFSC Code" id="IFSC Code" class="form-control">
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="Bank A/C No">Bank A/C No:</label>
-                                        <input type="text" placeholder="Bank A/C No" id="Bank A/C No" class="form-control">
-                                    </div>                                        
+                                    <div id="cloned_container">
+                                        <?$bank_details = json_decode(empty($profile->bank_details) ? '{"bank_name":[""]}' : $profile->bank_details)?>                                        
+                                        <?foreach($bank_details->bank_name as $i=>$bank_name){?>
+                                        <div class="cloned">
+                                            <div class="form-group">
+                                                <label for="bank_name">Bank Name</label>
+                                                <input type="text" name="bank_name[]" placeholder="Bank Name" id="bank_name" class="form-control" value="<?=$bank_details->bank_name[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bank_branch_state">Bank Branch State</label>
+                                                <select name="bank_branch_state[]" id="bank_branch_state" class="form-control" value="<?=$bank_details->bank_branch_state[$i]?>">
+                                                    <option value="">Select State</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 1) echo 'selected';?> value="1">1</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 2) echo 'selected';?> value="2">2</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 3) echo 'selected';?> value="3">3</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 4) echo 'selected';?> value="4">4</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 5) echo 'selected';?> value="5">5</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bank_branch">Bank Branch</label>
+                                                <input type="text" name="bank_branch[]" placeholder="Bank Branch" id="bank_branch" class="form-control" value="<?=$bank_details->bank_branch[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="account_type">Account Type</label>
+                                                <input type="text" name="account_type[]" placeholder="Account Type" id="account_type" class="form-control" value="<?=$bank_details->account_type[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="ifsc_code">IFSC Code</label>
+                                                <input type="text" name="ifsc_code[]" placeholder="IFSC Code" id="ifsc_code" class="form-control" value="<?=$bank_details->ifsc_code[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bank_ac_no">Bank A/C No</label>
+                                                <input type="text" name="bank_ac_no[]" placeholder="Bank A/C No" id="bank_ac_no" class="form-control" value="<?=$bank_details->bank_ac_no[$i]?>">
+                                            </div>
+                                            
+                                            <button class="btn btn-success waves-effect waves-light w-md clone" type="button">Add Bank</button>                                       
+                                            <button class="btn btn-danger waves-effect waves-light w-md remove pull-right" type="button">Remove</button>                                       
+                                        </div> 
+                                        <?}?>
+                                    </div> 
                                 <?}?>
                                 
                                 <?if($this->parameters['tab']!='personal_information'){?>
@@ -405,6 +415,7 @@
     </div>
 </div>
 
+<?if($profile->id==Session::get('user_id')){?>
 <script>
     window.onload = function(){		
         $('#referal_id').blur(function(){
@@ -418,9 +429,8 @@
                     $('[name=reffered_by]').val(r.id);
                 }		
             });
-        });
+        });        
         
-        <?if($profile->id==Session::get('user_id')){?>
         $('#avatar').click(function(){
             $('[name=avatar]').click();
         });
@@ -448,6 +458,22 @@
                 }		
             });
         });
-        <?}?>
+    
+        function clone(){
+            $(this).parent(".cloned")
+                .clone()                
+                .find("input:text, input:hidden, textarea, select").val("").end()
+                .appendTo('#cloned_container')
+                .on('click', 'button.clone', clone)
+                .on('click', 'button.remove', remove);
+        }
+        
+        function remove(){
+            $(this).parents(".cloned").remove();
+        }
+        
+        $("button.clone").on("click", clone);
+        $("button.remove").on("click", remove);
     }
 </script>
+<?}?>

@@ -34,8 +34,9 @@
             // unset some data
             unset($data['csrfToken']);
             unset($data['returnUrl']);
+            unset($data['tab']);            
             unset($data['id']);            
-            
+                        
             // update reffered_by
             if(isset($reffered_by))
             {
@@ -55,21 +56,25 @@
             if(!is_object($user_profile))
             {
                 $user_profile = $this->use_table('user_profile')->create();				
-				$user_profile->id = $id;
+                $user_profile->id = $id;
             }
             
-            // loop profile fields
-            foreach($data as $field=>$value) 
-            {
-                if($field=='dob' || $field=='nominee_dob')
-                    $user_profile->{$field} = $this->functions->date_format($value, 'Y-m-d');
-                else
-                    $user_profile->{$field} = $value;
+            if($tab!='bank_details'){ 
+                // loop profile fields
+                foreach($data as $field=>$value) 
+                {
+                    if($field=='dob' || $field=='nominee_dob')
+                        $user_profile->{$field} = $this->functions->date_format($value, 'Y-m-d');
+                    else
+                        $user_profile->{$field} = $value;
+                }
+            }else{
+                $user_profile->bank_details = json_encode($data);                
             }
             
             // save profile fields
             $user_profile->save();
-
+                
             // redirect back to module
             $this->redirect(urldecode($returnUrl));
         }

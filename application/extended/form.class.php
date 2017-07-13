@@ -39,7 +39,7 @@
                 $user = ORM::for_table('user')->find_one($user_id);
                 
                 // get thumbs
-				$thumb = AJAX_BASE_URL.'/'.AVATAR_PATH.'/'.$user_id.'.png?v='.$user->avatar_version;
+				$thumb = AJAX_BASE_URL.'/'.AVATAR_PATH.'/'.$user_id.'.png?v='.$user->avatar_version;				
 				
 				// avatar exists
 				$exists = true;

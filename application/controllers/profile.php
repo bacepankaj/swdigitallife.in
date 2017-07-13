@@ -88,7 +88,7 @@
 			$result['status'] = 'OK';
 			$result['message'] = 'Avatar changed successfully!';
 			$result['url'] = AJAX_BASE_URL.'/'.AVATAR_PATH.'/'.$id.'.png?v='.$avatar_version;
-
+			
 			echo $result = json_encode($result);
         }
 	}
