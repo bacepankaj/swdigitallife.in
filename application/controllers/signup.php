@@ -42,15 +42,18 @@
 		function verify(){
 			// get data from registratio
             $data = json_decode($this->functions->encrypt_decrypt('decrypt', $this->parameters['verificationCode']));
-              
+           
             // get opt
             $otp = strtoupper($this->functions->GenerateRandomString(6, '1234567890'));   
 
             // set otp
             $data->otp = $otp;
                   
-            // prepare msg
-            $msg = "Dear $data->name Thank to register with ".APP_NAME." your Id no is $otp";
+            // prepare msg             
+            if($data->controller=='signup')
+                $msg = "Dear $data->name Thank to register with ".APP_NAME." your Id no is $otp";
+            else if($data->controller=='forgot_password')
+                $msg = "Dear $data->name Thank to register with ".APP_NAME." your Id no is $otp";
             
             // send message otp
             $this->functions->send_msg($data->mobile, $msg);

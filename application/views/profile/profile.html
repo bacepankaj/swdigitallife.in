@@ -1,23 +1,3 @@
-<style>
-    .cloned {
-        padding: 10px;
-        border: 1px solid #dcdcdc;
-        border-radius: 4px;
-        background-color: #f5f5f5;
-        margin-bottom: 20px;
-    }    
-    
-    #cloned_container > .cloned:first-child > .remove {
-        display: none;
-    }
-</style>
-
-<div class="row">
-    <div class="col-sm-12">
-        <h4 class="header-title m-t-0 m-b-20">Profile</h4>
-    </div>
-</div> <!-- end row -->
-
 <div class="row">
     <div class="col-md-12">
         <div class="p-0 text-center">
@@ -149,8 +129,8 @@
                                     </div>
                                 <?}elseif($this->parameters['tab']=='personal_details'){?>
                                     <div class="form-group">
-                                        <label for="referal_id">Referal ID</label>
-                                        <input type="text" placeholder="Referal ID" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>">
+                                        <label for="referal_id">Referal ID / Mobile Number</label>
+                                        <input type="text" placeholder="Referal ID / Mobile Number" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>">
                                     </div>
                                     
                                     <div class="form-group">
@@ -219,7 +199,7 @@
                                     
                                     <div class="form-group">
                                         <label for="state">State</label>
-                                        <input type="text" name="state" placeholder="State" id="state" class="form-control" value="<?=$profile->state?>">
+                                        <?=$this->form->select($this->form->pick_list('State'), array('name'=>'state', 'id'=>'state', 'class'=>'form-control', 'placeholder'=>'Select State', 'value'=>$profile->state))?>                                        
                                     </div>
                                     
                                     <div class="form-group">
@@ -458,22 +438,6 @@
                 }		
             });
         });
-    
-        function clone(){
-            $(this).parent(".cloned")
-                .clone()                
-                .find("input:text, input:hidden, textarea, select").val("").end()
-                .appendTo('#cloned_container')
-                .on('click', 'button.clone', clone)
-                .on('click', 'button.remove', remove);
-        }
-        
-        function remove(){
-            $(this).parents(".cloned").remove();
-        }
-        
-        $("button.clone").on("click", clone);
-        $("button.remove").on("click", remove);
     }
 </script>
 <?}?>

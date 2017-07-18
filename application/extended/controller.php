@@ -47,5 +47,49 @@
 			else
 				$this->redirect_to_after_login = $redirect_to_after_login;
 		}
+        
+        /**
+		* Index
+		*
+		* Function index
+		* @author Susanta Das
+		*/
+		function index(){
+            // render view page
+			$this->view->display(DASHBOARD_FILE);
+		}
+        
+        /**
+		* Dashboard
+		*
+		* Function dashboard
+		* @author Susanta Das
+		*/
+		function dashboard(){
+            // render view page
+			$this->index();
+		}
+        
+        /**
+		* Search
+		*
+		* Function create
+		* @author Susanta Das
+		*/
+		function search(){
+            // render view page
+			$this->view->display(SEARCH_FILE);
+        }
+        
+        /**
+		* Trash
+		*
+		* Function trash
+		* @author Susanta Das
+		*/
+		function trash(){
+            // render view page
+            $this->search();
+        }
 	}
 ?>

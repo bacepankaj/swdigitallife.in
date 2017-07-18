@@ -97,7 +97,7 @@
             if(strlen($id)==36)         
                 $profile = $profile->find_one($id);
             else
-                $profile = $profile->where('user_name', $id)->find_one();
+                $profile = $profile->where_raw("(user_name = '$id' OR mobile = '$id')")->find_one();
                        
             // return profile
             return $profile;

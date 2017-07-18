@@ -15,7 +15,10 @@
 		* @author Susanta Das
 		*/
 		function __construct() {
-			parent::__construct(true);			
+			parent::__construct(true);
+
+            // disable operation menu
+            $this->view->operation_menu = array();
 		}
 		
 		/**

@@ -25,6 +25,22 @@
 		}
         
         /**
+		* Get Pick List
+		*
+		* Function pick_list
+		* @param name
+		* @param append_blank_option as boolean
+		* @param return_id as boolean
+		* @param parent_option as string
+		* @param selected_options as array
+		* @returns array
+		* @author Susanta Das
+		*/
+		function pick_list($name, $append_blank_option=true, $return_id=false, $parent_option=null, $selected_options=null) {
+			return Model::use_model('pick_list')->pick_list($name, $append_blank_option, $return_id, $parent_option, $selected_options);
+		}
+        
+        /**
 		* Get Avatar Image
 		*
 		* Function avatar

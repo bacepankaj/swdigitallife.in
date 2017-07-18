@@ -96,7 +96,7 @@
 
                                         <div class="form-group account-btn text-center m-t-10">
                                             <div class="col-xs-12">
-                                                <button class="btn btn-lg btn-custom btn-block" type="submit">Sign Up Free</button>
+                                                <button class="btn btn-lg btn-custom btn-block" type="submit"><?=($data->controller=='signup' ? 'Sign Up' : 'Reset Password')?></button>
                                             </div>
                                         </div>
 
@@ -121,8 +121,6 @@
         </section>
         <!-- END HOME -->
 
-
-
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery-2.1.4.min.js"></script>
         <script src="<?=PUBLIC_PATH?>/assets/js/bootstrap.min.js"></script>
@@ -130,6 +128,5 @@
 
         <!-- App Js -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery.app.js"></script>
-
     </body>
 </html>

@@ -16,6 +16,12 @@
 		*/
 		function __construct() {
 			parent::__construct();
+            
+            // disable operation menu
+            $this->view->operation_menu = array();
+            
+            // override caption
+            $this->view->caption = "Overview & Status";
 		}
         
         function index() {

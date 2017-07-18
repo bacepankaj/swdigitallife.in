@@ -165,7 +165,7 @@
 		* @returns array
 		* @author Susanta Das
 		*/
-		public function RStoArray($rs_object, $value_field=null, $key_field=null){
+		public function RStoArray($rs_object, $value_field=null, $key_field='id'){
 			// loop the object to to get fields
 			foreach($rs_object as $rs_field)
 			{				
@@ -176,18 +176,18 @@
 					$_value_field = null;
 					foreach($value_field as $field)
 					{
-						if(isset($rs_field->$field))
-							$_value_field .= trim($rs_field->$field);
+						if(isset($rs_field->{$field}))
+							$_value_field .= trim($rs_field->{$field});
 						else
 							$_value_field .= $field;
 					}
 				}
 				else
-					$_value_field = trim($rs_field->$value_field);
+					$_value_field = trim($rs_field->{$value_field});
 				
 				// check if key is not empty or not
 				if(!empty($key_field))
-					$fieldset[$rs_field->$key_field] = trim($_value_field);
+					$fieldset[$rs_field->{$key_field}] = trim($_value_field);
 				else
 					$fieldset[] = trim($_value_field);
 			}
@@ -211,24 +211,26 @@
 			// check if record is empty for new record creation else update record
 			if(empty($data['id']))
 			{
-				$model_rs = $this->$model->create();
+				$model_rs = $this->{$model}->create();
 				$model_rs->id = $this->uuid;
 			}
 			else
-				$model_rs = $this->$model->find_one($data['id']);
+				$model_rs = $this->{$model}->find_one($data['id']);
 			
 			// loop the form variables
 			foreach($data as $field=>$value)
 			{
 				if($field!='id')
 				{
-					if(!is_array($value))
-						$model_rs->$field = trim($value);				
+					if(is_array($value))
+						$model_rs->{$field} = implode(',', $value);									
+                    else if(empty($value)) 
+                        $model_rs->{$field} = null;
 					else
-						$model_rs->$field = implode(',', $value);									
+						$model_rs->{$field} = trim($value);
 				}
 			}
-			
+            			
 			// save the record
 			$model_rs->save();
 			

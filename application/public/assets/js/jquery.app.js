@@ -100,6 +100,20 @@
         
         return state;
     }
+    
+    function clone(){
+        $(this).parent(".cloned")
+            .clone().attr('id', 'cloned')               
+            .find("input:text, input:hidden, textarea, select").val("").end()
+            //.appendTo('#cloned_container')
+            .insertAfter($(this).parent(".cloned"))
+            .on('click', 'button.clone', clone)
+            .on('click', 'button.remove', remove);
+    }
+    
+    function remove(){
+        $(this).parents(".cloned").remove();
+    }
 
     function init() {
         initSlimscroll();
@@ -108,6 +122,9 @@
         initComponents();
         initActiveMenu();
         ajaxSetup();
+        
+        $("button.clone").on("click", clone);
+        $("button.remove").on("click", remove);
     }
 
     init();

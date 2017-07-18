@@ -72,7 +72,15 @@
 		* @author Susanta Das
 		*/
 		function submit() {			
-			$this->model->submit($_POST);		
+			// return url
+            $return_url = urldecode($_POST['returnUrl']);
+            
+            // unset variables
+            unset($_POST['csrfToken']);
+            unset($_POST['returnUrl']);
+            
+            // submit data
+            $this->model->submit($_POST, $return_url);		
 		}		
 		
 		/**

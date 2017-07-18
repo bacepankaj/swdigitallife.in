@@ -1,0 +1,11 @@
+<div class="p-0 text-center">
+    <a class="btn btn-custom btn-rounded m-r-10" href="<?=APP_PATH?>/<?=$this->controller?>/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+    
+    <?if(isset($this->operation_menu['create'])){?>
+    <a class="btn btn-success btn-rounded m-r-10" href="<?=APP_PATH?>/<?=$this->controller?>/create"><i class="fa fa-plus"></i> Create</a>
+    <?}?>
+    
+    <?if(isset($this->operation_menu['search'])){?>
+    <a class="btn btn-warning btn-rounded m-r-10" href="<?=APP_PATH?>/<?=$this->controller?>/search"><i class="fa fa-search"></i> Search</a>
+    <?}?>
+</div>

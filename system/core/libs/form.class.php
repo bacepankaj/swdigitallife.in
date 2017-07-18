@@ -21,8 +21,8 @@
 			// get method name
 			$this->method = METHOD;
 			
-			// get controller parameters
-			$this->parameters = unserialize(PARAMETERS);
+			// get form parameters
+			$this->parameters = json_decode(PARAMETERS, true);
 			
 			// set action path
 			$this->action_path = APP_PATH.'/'.CONTROLLER;
@@ -176,7 +176,7 @@
 			
 			if($disabled || $this->disable)
 			$state = ' disabled';	
-			
+			            
 			//get parameters
 			if(!empty($this->parameters))
 			$parameters = '/'.implode('/', $this->parameters);
@@ -335,7 +335,9 @@
 			{
 				foreach($options as $value=>$label)
 				{
-					//get selected option
+					if(empty($value)) $label = $get_placeholder;
+                        
+                    //get selected option
 					if(is_array($get_value)) // check if value is multiple
 					{	
 						if(in_array($value, $get_value))
