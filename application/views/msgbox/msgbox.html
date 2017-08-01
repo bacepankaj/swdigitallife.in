@@ -126,6 +126,12 @@
         <script src="<?=PUBLIC_PATH?>/assets/js/bootstrap.min.js"></script>
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery.slimscroll.min.js"></script>
 
+		<script>
+            var ajax_url = '<?=AJAX_URL?>';
+            var ajax_base_url = '<?=AJAX_BASE_URL?>';
+            var csrf_token = '<?=Session::get('token')?>';            
+        </script>
+		
         <!-- App Js -->
         <script src="<?=PUBLIC_PATH?>/assets/js/jquery.app.js"></script>
     </body>

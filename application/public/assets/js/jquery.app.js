@@ -125,6 +125,18 @@
         
         $("button.clone").on("click", clone);
         $("button.remove").on("click", remove);
+                
+        // dropdown plugins
+		$.jsonDropDown({
+			url	: ajax_url + "/json_dropdown",
+			csrfToken: csrf_token,
+            callback : function(state){
+				if(state)
+				$('.chosen-select').trigger("chosen:updated");
+			}
+		});
+		
+		$('.form-validation').parsley();
     }
 
     init();

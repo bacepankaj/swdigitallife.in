@@ -246,5 +246,137 @@
 			// return table field			
 			return $this->model->column_data($table, $id, $field, $key);			
 		}
+        
+        /**
+		* Generate Json Dropdown
+		*
+		* Function json_dropdown
+		* @param post data
+		* @returns json data
+		* @author Susanta Das
+		*/
+		function json_dropdown(){
+			extract($_POST);
+			
+			// decode the html request
+			$selected = html_entity_decode($selected);
+			
+			// get json array 
+			$json_array = json_decode(stripslashes($selected), true);
+						
+			// get selected items as array
+			foreach($json_array as $item)
+			{
+				$selected_items[] = $item['value'];
+			}
+										
+			if($type=='record_master')// check if type is record master
+			{
+				// use sys_record_master table
+				$this->model->use_table('sys_record_master');
+			
+				// get pick list from sys_pick_list_details table
+				$record_master = $this->model->sys_record_master->where('del_flg', 0)->find_one($dropdown_id);
+								
+				// use table for table in record master
+				$sys_table = $this->model->use_table($record_master->table_name);
+				
+				// get table join objects
+				$table_join = json_decode($record_master->table_join);
+								
+				if(is_object($sys_table))
+				{					
+					// get pick list from record_master table
+					if(strpos($record_master->field_caption, ',') !== false)
+						$pick_list = $sys_table->select_many(array('id'=>$record_master->field_value))->select_expr('CONCAT(`'.str_replace(".", "`.`", str_replace(",", "`,' ',`", $record_master->field_caption)).'`)', 'value')->order_by_expr('CONCAT(`'.str_replace(".", "`.`", str_replace(",", "`,' ',`", $record_master->field_caption)).'`)');
+					else
+						$pick_list = $sys_table->select_many(array('id'=>$record_master->field_value), array('value'=>$record_master->field_caption))->order_by_asc($record_master->field_caption);						
+				
+					if($is_dependent)
+						$pick_list = $pick_list->where_in($record_master->parent_ref_key, $selected_items);			
+					else
+					{
+						if(!empty($selected_items[0]))		
+						$pick_list = $pick_list->where_in($record_master->parent_ref_key, $selected_items);
+					}					
+
+					// prepare join query
+					foreach($table_join as $join)
+					{						
+						$pick_list = $pick_list->join($join->table, array($join->on, '=', $join->equal), $join->table);
+					}
+					
+					// check rs object
+					if(is_object($pick_list))
+					{
+						// check custom condition
+						if(!empty($record_master->condition))
+						{
+							// get condition variables
+							preg_match_all('/{(.*?)\}/s', $record_master->condition, $condition_variables);
+							
+							// get condition variables
+							foreach($condition_variables[1] as $i=>$variable)
+							{
+								// get statement
+								$statement = $condition_variables[1][$i];	
+								
+								// evaluate statement
+								eval("\$var = $statement;");
+								
+								// replace condition with condition variable
+								$record_master->condition = str_replace($condition_variables[0][$i], $var, $record_master->condition);
+							}
+							
+							// add custom condition
+							$pick_list = $pick_list->where_raw($record_master->condition);
+						}
+						
+						// execute the query				
+						$pick_list = $pick_list->find_many();
+					}
+				}
+			}
+			else
+			{
+				// use pick_list_details table
+				$this->model->use_table('pick_list_details');
+			
+				// get pick list from pick_list_details table
+				$pick_list = $this->model->use_table('pick_list_details')->where('pick_list_id', $dropdown_id)->order_by_asc('caption');
+								
+				if($is_dependent)
+					$pick_list = $pick_list->where_in('parent_id', $selected_items);			
+				else
+				{
+					if(!empty($selected_items[0]))		
+					$pick_list = $pick_list->where_in('parent_id', $selected_items);		
+				}
+				
+				// check rs object
+				if(is_object($pick_list))
+				{
+					// execute the query									
+					$pick_list = $pick_list->find_many();
+				}
+			}
+						
+			if($pick_list->count() > 0)
+			{
+				// create array of pick list
+				foreach($pick_list as $item)
+				{
+					if($type=='record_master')
+						$options[$item->id] = $item->value;
+					else
+						$options[$item->value] = array('id'=>$item->id, 'value'=>$item->value);
+				}
+				
+				// return json data
+				echo json_encode($options);
+			}
+			else
+				echo json_encode(array());
+		}
 	}
 ?>

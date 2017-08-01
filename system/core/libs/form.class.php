@@ -321,14 +321,14 @@
 				
 				if($attribute == 'placeholder')
 				$get_placeholder = $value;
-				
+            				
 				if($attribute != 'value')
 				$attributes .= "$attribute=\"$value\" ";
 			}
 			
 			if(!is_array($get_value) && strstr($get_value, ','))
 			$get_value = explode(',', $get_value);
-								
+			            
 			//create options	
 			$get_options = null;			
 			if(!empty($options))
@@ -353,7 +353,7 @@
 							$selected = null;	
 					}
 					
-					$get_options .= '<option '.$selected.' value="'.$value.'">'.$label.'</option>';
+					$get_options .= '<option '.$selected.' value="'.$value.'"'.(is_array($label) ? 'id="'.$label['id'].'"' : null).'>'.(is_array($label) ? $label['label'] : $label).'</option>';
 				}
 			}
 			

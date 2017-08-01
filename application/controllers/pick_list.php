@@ -121,38 +121,38 @@
 		}
 		
 		// json data grid search
-		/*function record_search(){
+		//function record_search(){
+		function search(){
 			// use table
-			$this->model->use_table('sys_pick_list');
+			$this->model->use_table('pick_list');
 			
 			// create the query recordset
-			$recordset = $this->model->sys_pick_list->table_alias('ctable')			
+			$recordset = $this->model->use_table('pick_list')->table_alias('ctable')			
 				->select_many('ctable.id', 'name')
-				->where_raw("(sys_company_id = '".Session::get('company_id')."' OR sys_company_id IS NULL)")
 				->where('del_flg', 0)
-				->order_by_asc('name');
-				
-			// get users id's in an array
-			$users = array_keys($this->user_access);
-				
-			// add owner conditions
-			$recordset = $recordset->where_raw("(`ctable`.`owner_id` IN ('".implode("','", $users)."') OR (SELECT `ssa`.`permission` FROM `sys_sharing_access` AS `ssa` WHERE `ssa`.`sys_module_id` = '".$this->module_info->id."' AND `ssa`.`sys_record_id` = `ctable`.`id` AND `ssa`.`sys_user_id_share` = `ctable`.`owner_id` AND `ssa`.`sys_user_id_to` = '".Session::get('user_id')."' AND `ssa`.`enable_sharing` = 1 OR `ctable`.`owner_id` = '".Session::get('user_id')."') > 0)");
-			$recordset = $recordset->select_expr("(SELECT CONCAT(`first_name`,' ',`last_name`) FROM `sys_user_login` `sul` WHERE `sul`.`id` = `owner_id`)", 'Owner')->select('owner_id');
+				->order_by_asc('name')
+                ->find_many();
+                
+            // assign recordset
+			$this->view->assign('recordset', $recordset);	
+			            
+            // view template
+            $this->view->display($this->view->search_file);
 			
 			// grid options
-			$options = array(
+			/*$options = array(
 				'primary_key'=>'id',
-				'delete_table'=>'sys_pick_list',
+				'delete_table'=>'pick_list',
 				'delete_permanent'=>true,
 				'module_sharing_per'=>$this->user_access				
 			);
 					
 			// fetch the records in grid
-			$this->grid_search($recordset, $options);
+			$this->grid_search($recordset, $options);*/
 		}
 		
 		// json trash grid search
-		function trash_grid(){
+		/*function trash_grid(){
 			// use table
 			$this->model->use_table('sys_pick_list');
 			

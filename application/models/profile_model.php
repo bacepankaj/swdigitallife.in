@@ -34,6 +34,7 @@
             // unset some data
             unset($data['csrfToken']);
             unset($data['returnUrl']);
+            unset($data['nextTab']);
             unset($data['tab']);            
             unset($data['id']);            
                         
@@ -76,7 +77,7 @@
             $user_profile->save();
                 
             // redirect back to module
-            $this->redirect(urldecode($returnUrl));
+            $this->redirect($nextTab);
         }
         
         /**

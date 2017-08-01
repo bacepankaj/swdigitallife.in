@@ -20,7 +20,7 @@
         
 		function pick_list($name_id, $append_blank_option=true, $return_id=false, $parent_option=null, $selected_options=null){
 			// get pick list details
-			$pick_list_details = $this->use_table('pick_list')->table_alias('pl')->join('pick_list_details', array('pld.pick_list_id', '=', 'pl.id'), 'pld')->select_many('pld.id', 'pld.caption', 'pld.value')->where_raw("(pl.id = '$name_id' OR pl.name = '$name_id')")->order_by_asc('list_order');
+			$pick_list_details = $this->use_table('pick_list')->table_alias('pl')->join('pick_list_details', array('pld.pick_list_id', '=', 'pl.id'), 'pld')->select_many('pld.id', 'pld.caption', 'pld.value')->where_raw("(pl.id = '$name_id' OR pl.name = '$name_id')")->order_by_asc('caption');
 			
 			// get parent options
 			if(!empty($parent_option))
@@ -41,9 +41,9 @@
 			foreach($pick_list_details as $pick_list)
 			{
 				if($return_id)
-					$pick_lists[$pick_list->id] = trim($pick_list->caption);
+					$pick_lists[$pick_list->id] = array('id'=>$pick_list->id, 'label'=>trim($pick_list->caption));
 				else
-					$pick_lists[trim($pick_list->value)] = trim($pick_list->caption);
+					$pick_lists[trim($pick_list->value)] = array('id'=>$pick_list->id, 'label'=>trim($pick_list->caption));
 			}
 			
 			// return picklist

@@ -74,7 +74,7 @@
                         </div>
                         
                         <div class="panel-body">
-                            <?=$this->form->form_open()?>
+                            <?=$this->form->form_open(array('class'=>'form-validation'))?>
                                 <input type="hidden" name="id" value="<?=$profile->id?>">
                                 <input type="hidden" name="tab" value="<?=$this->parameters['tab']?>">
                                 <?if($this->parameters['tab']=='personal_information'){?>
@@ -128,9 +128,11 @@
                                         <?}?>
                                     </div>
                                 <?}elseif($this->parameters['tab']=='personal_details'){?>
+                                    <input type="hidden" name="nextTab" value="profile?tab=communication_details">
+                                    
                                     <div class="form-group">
                                         <label for="referal_id">Referal ID / Mobile Number</label>
-                                        <input type="text" placeholder="Referal ID / Mobile Number" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>">
+                                        <input type="text" placeholder="Referal ID / Mobile Number" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>" parsley-trigger="change" data-parsley-type="number" data-parsley-minlength="10" data-parsley-maxlength="10" required>
                                     </div>
                                     
                                     <div class="form-group">
@@ -165,7 +167,7 @@
                                     
                                     <div class="form-group">
                                         <label for="pan_no">Pan Number</label>
-                                        <input type="text" name="pan_no" placeholder="12 Characters" id="pan_no" class="form-control" value="<?=$profile->pan_no?>">
+                                        <input type="text" name="pan_no" placeholder="12 Characters" id="pan_no" class="form-control" value="<?=$profile->pan_no?>" parsley-trigger="change" data-parsley-type="number" data-parsley-minlength="10" data-parsley-maxlength="10" required>
                                     </div>
                                     
                                     <div class="form-group">
@@ -187,6 +189,8 @@
                                         </div>
                                     </div>
                                 <?}elseif($this->parameters['tab']=='communication_details'){?>
+                                    <input type="hidden" name="nextTab" value="profile?tab=bank_details">
+                                    
                                     <div class="form-group">
                                         <label for="house_flat_no">House No. / Flat No.</label>
                                         <input type="text" name="house_flat_no" placeholder="House No. / Flat No." id="house_flat_no" class="form-control" value="<?=$profile->house_flat_no?>">
@@ -199,17 +203,17 @@
                                     
                                     <div class="form-group">
                                         <label for="state">State</label>
-                                        <?=$this->form->select($this->form->pick_list('State'), array('name'=>'state', 'id'=>'state', 'class'=>'form-control', 'placeholder'=>'Select State', 'value'=>$profile->state))?>                                        
+                                        <?=$this->form->select($this->form->pick_list('State'), array('name'=>'state', 'id'=>'state', 'dropdown_type'=>'pick_list', 'dropdown_id'=>'9d18e2dd-b6fa-4d23-93e0-e667b4c5c531', 'parent_dropdown_id'=>'', 'is_relative'=>0, 'is_dependent'=>0, 'class'=>'form-control', 'placeholder'=>'Select State', 'value'=>$profile->state))?>                                        
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="district">District</label>
-                                        <input type="text" name="district" placeholder="District" id="district" class="form-control" value="<?=$profile->district?>">
+                                        <?=$this->form->select($this->form->pick_list('District'), array('name'=>'district', 'id'=>'district', 'dropdown_type'=>'pick_list', 'dropdown_id'=>'80b2ddac-6b24-11e7-ae0f-a2ac7a5d63db', 'parent_dropdown_id'=>'9d18e2dd-b6fa-4d23-93e0-e667b4c5c531', 'is_relative'=>1, 'is_dependent'=>1, 'class'=>'form-control', 'placeholder'=>'Select District', 'value'=>$profile->district))?>                                        
                                     </div>
                                     
                                     <div class="form-group">
                                         <label for="city">City</label>
-                                        <input type="text" name="city" placeholder="City" id="city" class="form-control" value="<?=$profile->city?>">
+                                        <?=$this->form->select($this->form->pick_list('City'), array('name'=>'city', 'id'=>'city', 'dropdown_type'=>'pick_list', 'dropdown_id'=>'bf664709-b10c-466f-8878-2f64aed685e3', 'parent_dropdown_id'=>'80b2ddac-6b24-11e7-ae0f-a2ac7a5d63db', 'is_relative'=>1, 'is_dependent'=>1, 'class'=>'form-control', 'placeholder'=>'Select City', 'value'=>$profile->city))?>                                        
                                     </div>
                                     
                                     <div class="form-group">
@@ -227,6 +231,8 @@
                                         <input type="text" name="alternate_no" placeholder="Alternate Number" id="alternate_no" class="form-control" value="<?=$profile->alternate_no?>">
                                     </div>
                                 <?}elseif($this->parameters['tab']=='bank_details'){?>
+                                    <input type="hidden" name="nextTab" value="dashboard">
+                                    
                                     <div id="cloned_container">
                                         <?$bank_details = json_decode(empty($profile->bank_details) ? '{"bank_name":[""]}' : $profile->bank_details)?>                                        
                                         <?foreach($bank_details->bank_name as $i=>$bank_name){?>

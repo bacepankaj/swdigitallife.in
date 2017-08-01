@@ -66,11 +66,18 @@
      	<script src="<?=PUBLIC_PATH?>/assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js"></script>
      	<script src="<?=PUBLIC_PATH?>/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
         <script src="<?=PUBLIC_PATH?>/assets/plugins/summernote/summernote.min.js"></script>        
+        <script src="<?=PUBLIC_PATH?>/assets/plugins/jsonDropDown/jsonDropDown.js"></script>        
         
         <!--Morris Chart-->
 		<script src="<?=PUBLIC_PATH?>/assets/plugins/morris/morris.min.js"></script>
 		<script src="<?=PUBLIC_PATH?>/assets/plugins/raphael/raphael-min.js"></script>
 
+        <script>
+            var ajax_url = '<?=AJAX_URL?>';
+            var ajax_base_url = '<?=AJAX_BASE_URL?>';
+            var csrf_token = '<?=Session::get('token')?>';            
+        </script>
+        
         <!-- Dashboard init -->
 		<!--script src="<?=PUBLIC_PATH?>/assets/pages/jquery.dashboard.js"></script-->
         <script src="<?=PUBLIC_PATH?>/assets/pages/jquery.form-advanced.init.js"></script>

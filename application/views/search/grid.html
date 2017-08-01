@@ -1,1 +1,5 @@
-<h1>Search Script Here....</h1>
+<?            
+    foreach($recordset as $row){
+        echo '<p><a href="'.APP_PATH.'/'.$this->controller.'/view/'.$row->id.'">'.$row->name.'</a></p>';        
+    }
+?>

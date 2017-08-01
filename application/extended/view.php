@@ -29,7 +29,7 @@
                                             'create'=>'<i class="fa fa-plus"></i> Create',												
                                             'search'=>'<i class="fa fa-search"></i> Search',							
                                             'delete'=>'<i class="fa fa-remove"></i> Delete',
-                                            'trash'=>'<i class="fa fa-trash"></i> Trash',
+                                            //'trash'=>'<i class="fa fa-trash"></i> Trash',
                                             //'audit_logs'=>'<i class="fa fa-paw bigger-110 pink"></i> Audit Logs',
                                             //'reports'.(isset($this->parameters['tab']) && $this->method=='reports' ? '?tab='.$this->parameters['tab'] : '?tab=user_activity')=>'<i class="fa fa-bar-chart bigger-110 blue"></i> Reports',
                                             //'faq'=>'<i class="fa fa-question bigger-110 orange"></i> FAQ'
