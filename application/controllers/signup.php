@@ -74,5 +74,65 @@
 		function otp_verification(){
             $this->model->otp_verification();
         }
+        
+        /**
+		* import data
+		*
+		* Function import
+		* @author Susanta Das
+		*/        
+        function import(){
+            $handle = fopen(UPLOAD_PATH."/data.csv", "r");
+            
+            if ($handle) {
+                while (($line = fgets($handle)) !== false) {
+                    $data = explode(",", $line);
+                    
+                    if(is_numeric($data[0]))
+                    {
+                        $name = $data[1];
+                        $mobile = substr($data[2], 0, 10);    
+                        $username = substr($data[3], 3, 5);    
+                        $id_prefix = $this->functions->date_format($data[4], "ym");    
+                        $username = $id_prefix.$username;
+                        $doj = $this->functions->date_format($data[4], "Y-m-d");  
+                        $reffer_by_username = substr($data[5], 3, 5);  
+                            
+                        if(!empty($reffer_by_username)){
+                            $reffer_by_id = $this->model->use_table('user')->where_like("user_name", "%$reffer_by_username")->find_one();
+                            
+                            if(is_object($reffer_by_id))
+                            {
+                                $reffer_by = $reffer_by_id->id;
+                            }
+                        } else {
+                            $reffer_by = null;
+                        }
+                        
+                        $address = $data[20];
+                        
+                        // add user
+                        $user = $this->model->use_table('user')->create();
+                        
+                        $user->id = $this->functions->uuid();
+                        $user->user_name = $username;
+                        $user->name = $name;
+                        $user->mobile = $mobile;                       
+                        $user->reffered_by = $reffer_by;
+                        $user->date_of_joining = $doj;
+                        $user->save();
+                        
+                        // add user_profile
+                        $user_profile = $this->model->use_table('user_profile')->create();
+                        
+                        $user_profile->id = $user->id;
+                        $user_profile->street_road_name = $address;
+                        $user_profile->save();
+                    }
+                }
+
+                fclose($handle);
+            }
+        }
 	}
 ?>
