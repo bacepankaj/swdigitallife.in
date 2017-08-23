@@ -27,12 +27,24 @@
             
             // filter msg
             $message = str_replace(' ', '%20', $message);
-            
+                       
             // set curl url
             $url = "http://59.162.167.52/api/MessageCompose?admin=t9infomedia@gmail.com&user=smart@t9.com:Prakash@1705&senderID=SMAART&receipientno=$phone_no&msgtxt=$message&state=4";
-             
-            // call api
-            file_get_contents($url);
+                         
+            // create curl resource 
+            $ch = curl_init(); 
+
+            // set url 
+            curl_setopt($ch, CURLOPT_URL, $url); 
+
+            //return the transfer as a string 
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+            // $output contains the output string 
+            $output = curl_exec($ch); 
+
+            // close curl resource to free up system resources 
+            curl_close($ch);
         }
 	}
 ?>
