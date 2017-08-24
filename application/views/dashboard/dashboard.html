@@ -1,3 +1,13 @@
+<div class="alert alert-icon alert-warning alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    
+    <i class="mdi mdi-information"></i>
+    Dear <strong><?=Session::get('name')?></strong> you are not signup as <strong>Member</strong>. Click <a href="<?=APP_PATH?>/profile?tab=bank_details">here</a> to signup as <strong>Member</strong>.
+</div>
+
 <div class="row">
     <div class="col-sm-4">
         <div class="card-box">

@@ -1,0 +1,449 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="p-0 text-center">
+            <div class="member-card">
+                <div class="thumb-xl member-thumb m-b-10 center-block">
+                    <?if($profile->id==Session::get('user_id')){?>
+                    <input type="file" name="avatar" class="hide">
+                    <?}?>
+                    <img id="avatar" src="<?=$this->form->avatar($profile->id)?>" class="img-circle img-thumbnail session-avatar" role="button" alt="<?=$profile->name?>">
+                    <i class="mdi mdi-star-circle member-star text-success" title="verified user"></i>
+                </div>
+
+                <div class="">
+                    <h4 class="m-b-5"><?=$profile->name?></h4>
+                    <p class="text-muted">User Id : <?=$profile->user_name?></p>
+                </div>
+
+                <p class="text-muted m-t-10 hide">
+                    Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
+                </p>
+
+                <button type="button" class="btn btn-primary m-t-10 hide">Follow</button>
+                <button type="button" class="btn btn-custom m-t-10 hide">Message</button>
+            </div>
+        </div> <!-- end card-box -->
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+<?
+    // default tab
+    $this->parameters['tab'] = (!isset($this->parameters['tab']) ? 'personal_information' : $this->parameters['tab']);
+    
+    // create active tab
+    eval('$'.$this->parameters['tab'].'="active";');
+?>
+
+<div class="m-t-30">
+    <ul class="nav nav-tabs tabs-bordered">
+        <li class="<?=$personal_information?>">
+            <a href="?tab=personal_information">
+                Profile
+            </a>
+        </li>
+        
+        <?if($profile->id==Session::get('user_id')){?>
+        <li class="<?=$personal_details?>">
+            <a href="?tab=personal_details">
+                Personal Details
+            </a>
+        </li>
+        
+        <li class="<?=$communication_details?>">
+            <a href="?tab=communication_details">
+                Communication Details
+            </a>
+        </li>
+        
+        <li class="<?=$bank_details?>">
+            <a href="?tab=bank_details">
+                Bank Details
+            </a>
+        </li>
+        <?}?>
+    </ul>
+    
+    <div class="tab-content">
+        <!-- Personal-Information -->
+        <div class="tab-pane active">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default panel-fill">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><?=ucwords(str_replace('_', ' ', $this->parameters['tab']))?></h3>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <?=$this->form->form_open(array('class'=>'form-validation'))?>
+                                <input type="hidden" name="id" value="<?=$profile->id?>">
+                                <input type="hidden" name="tab" value="<?=$this->parameters['tab']?>">
+                                <?if($this->parameters['tab']=='personal_information'){?>
+                                    <div class="m-b-20">
+                                        <strong>Full Name</strong>
+                                        <br>
+                                        <p class="text-muted"><?=$profile->name?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20">
+                                        <strong>User Id</strong>
+                                        <br>
+                                        <p class="text-muted"><?=$profile->user_name?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20">
+                                        <strong>Gender</strong>
+                                        <br>
+                                        <p class="text-muted"><?=(empty($profile->gender) ? 'Unknown' : $profile->gender)?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20">
+                                        <strong>Mobile</strong>
+                                        <br>
+                                        <p class="text-muted"><?=$profile->mobile?></p>
+                                    </div>
+                                    
+                                    <div class="m-b-20 hide">
+                                        <strong>Email</strong>
+                                        <br>
+                                        <p class="text-muted">johnath@domain.com</p>
+                                    </div>
+                                    
+                                    <div class="m-b-20 m-b-0">
+                                        <strong>Referal Id</strong>
+                                        <br>
+                                        <?if(!empty($profile->reffered_by)){?>
+                                        <p class="text-muted"><?=$profile->refferal_id?></p>
+                                        <?}else{?>
+                                        <p class="text-muted">Not Available</p>
+                                        <?}?>
+                                    </div>
+                                    
+                                    <div class="about-info-p m-b-0">
+                                        <strong>Referal Name</strong>
+                                        <br>
+                                        <?if(!empty($profile->reffered_by)){?>
+                                        <p class="text-muted"><a href="<?=APP_PATH?>/profile?id=<?=$profile->reffered_by?>"><?=$profile->refferal_name?></a></p>
+                                        <?}else{?>
+                                        <p class="text-muted">Not Available</p>
+                                        <?}?>
+                                    </div>
+                                <?}elseif($this->parameters['tab']=='personal_details'){?>
+                                    <input type="hidden" name="nextTab" value="profile?tab=communication_details">
+                                    
+                                    <div class="form-group">
+                                        <label for="referal_id">Referal ID / Mobile Number</label>
+                                        <input type="text" placeholder="Referal ID / Mobile Number" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>" parsley-trigger="change" data-parsley-type="number" data-parsley-minlength="9" data-parsley-maxlength="10" required>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="reffered_by">Referal Name</label>
+                                        <input type="text" placeholder="Referal Name" id="reffered_by" class="form-control" readonly="readonly" value="<?=$profile->refferal_name?>">
+                                        <input type="hidden" name="reffered_by" class="form-control" readonly="readonly" value="<?=$profile->reffered_by?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="father_husband_name">Father / Husband Name</label>
+                                        <input type="text" name="father_husband_name" placeholder="Father / Husband Name" id="father_husband_name" class="form-control" value="<?=$profile->father_husband_name?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label style="padding-right:10px">Gender</label>
+                                        
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="gender_male" value="Male" name="gender" <?=($profile->gender=='Male' ? 'checked="checked"' : null)?>>
+                                            <label for="gender_male"> Male </label>
+                                        </div>
+                                        
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="gender_female" value="Female" name="gender" <?=($profile->gender=='Female' ? 'checked="checked"' : null)?>>
+                                            <label for="gender_female"> Female </label>
+                                        </div>
+                                        
+                                        <div class="radio radio-info radio-inline">
+                                            <input type="radio" id="gender_others" value="Others" name="gender" <?=($profile->gender=='Others' ? 'checked="checked"' : null)?>>
+                                            <label for="gender_others"> Others </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="pan_no">Pan Number</label>
+                                        <input type="text" name="pan_no" placeholder="12 Characters" id="pan_no" class="form-control" value="<?=$profile->pan_no?>" parsley-trigger="change" data-parsley-type="number" data-parsley-minlength="10" data-parsley-maxlength="10" required1>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="Date of Birth">Date of Birth</label>
+                                        <div class="input-group">
+                                         <input type="text" name="dob" class="form-control datepicker" placeholder="dd-mm-yyyy" value="<?=$this->functions->date_format($profile->dob, 'd-m-Y')?>">
+                                         <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                        <label for="nominee_name">Nominee Name</label>
+                                        <input type="text" name="nominee_name" placeholder="Nominee Name" id="nominee_name" class="form-control" value="<?=$profile->nominee_name?>">
+                                    </div>
+									<div class="form-group">
+                                        <label for="nominee_dob">Nominee Date of Birth</label>
+                                        <div class="input-group">
+                                         <input type="text" name="nominee_dob" class="form-control datepicker" placeholder="Nominee Date of Birth" value="<?=$this->functions->date_format($profile->dob, 'd-m-Y')?>">
+                                         <span class="input-group-addon bg-custom b-0"><i class="mdi mdi-calendar text-white"></i></span>
+                                        </div>
+                                    </div>
+                                <?}elseif($this->parameters['tab']=='communication_details'){?>
+                                    <input type="hidden" name="nextTab" value="profile?tab=bank_details">
+                                    
+                                    <div class="form-group">
+                                        <label for="house_flat_no">House No. / Flat No.</label>
+                                        <input type="text" name="house_flat_no" placeholder="House No. / Flat No." id="house_flat_no" class="form-control" value="<?=$profile->house_flat_no?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="street_road_name">Street / Road Name</label>
+                                        <input type="text" name="street_road_name" placeholder="Street / Road Name" id="street_road_name" class="form-control" value="<?=$profile->street_road_name?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="state">State</label>
+                                        <?=$this->form->select($this->form->pick_list('State'), array('name'=>'state', 'id'=>'state', 'dropdown_type'=>'pick_list', 'dropdown_id'=>'9d18e2dd-b6fa-4d23-93e0-e667b4c5c531', 'parent_dropdown_id'=>'', 'is_relative'=>0, 'is_dependent'=>0, 'class'=>'form-control', 'placeholder'=>'Select State', 'value'=>$profile->state))?>                                        
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="district">District</label>
+                                        <?=$this->form->select($this->form->pick_list('District'), array('name'=>'district', 'id'=>'district', 'dropdown_type'=>'pick_list', 'dropdown_id'=>'80b2ddac-6b24-11e7-ae0f-a2ac7a5d63db', 'parent_dropdown_id'=>'9d18e2dd-b6fa-4d23-93e0-e667b4c5c531', 'is_relative'=>1, 'is_dependent'=>1, 'class'=>'form-control', 'placeholder'=>'Select District', 'value'=>$profile->district))?>                                        
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="city">City</label>
+                                        <?=$this->form->select($this->form->pick_list('City'), array('name'=>'city', 'id'=>'city', 'dropdown_type'=>'pick_list', 'dropdown_id'=>'bf664709-b10c-466f-8878-2f64aed685e3', 'parent_dropdown_id'=>'80b2ddac-6b24-11e7-ae0f-a2ac7a5d63db', 'is_relative'=>1, 'is_dependent'=>1, 'class'=>'form-control', 'placeholder'=>'Select City', 'value'=>$profile->city))?>                                        
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="post_office">Post Office</label>
+                                        <input type="text" name="post_office" placeholder="Post Office" id="post_office" class="form-control" value="<?=$profile->post_office?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="pin_code">Postal Code</label>
+                                        <input type="text" name="pin_code" placeholder="Postal Code" id="pin_code" class="form-control" value="<?=$profile->pin_code?>">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="alternate_no">Alternate Number</label>
+                                        <input type="text" name="alternate_no" placeholder="Alternate Number" id="alternate_no" class="form-control" value="<?=$profile->alternate_no?>">
+                                    </div>
+                                <?}elseif($this->parameters['tab']=='bank_details'){?>
+                                    <input type="hidden" name="nextTab" value="dashboard">
+                                    
+                                    <div id="cloned_container">
+                                        <?$bank_details = json_decode(empty($profile->bank_details) ? '{"bank_name":[""]}' : $profile->bank_details)?>                                        
+                                        <?foreach($bank_details->bank_name as $i=>$bank_name){?>
+                                        <div class="cloned">
+                                            <div class="form-group">
+                                                <label for="bank_name">Bank Name</label>
+                                                <input type="text" name="bank_name[]" placeholder="Bank Name" id="bank_name" class="form-control" value="<?=$bank_details->bank_name[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bank_branch_state">Bank Branch State</label>
+                                                <select name="bank_branch_state[]" id="bank_branch_state" class="form-control" value="<?=$bank_details->bank_branch_state[$i]?>">
+                                                    <option value="">Select State</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 1) echo 'selected';?> value="1">1</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 2) echo 'selected';?> value="2">2</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 3) echo 'selected';?> value="3">3</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 4) echo 'selected';?> value="4">4</option>
+                                                    <option <?if($bank_details->bank_branch_state[$i] == 5) echo 'selected';?> value="5">5</option>
+                                                </select>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bank_branch">Bank Branch</label>
+                                                <input type="text" name="bank_branch[]" placeholder="Bank Branch" id="bank_branch" class="form-control" value="<?=$bank_details->bank_branch[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="account_type">Account Type</label>
+                                                <input type="text" name="account_type[]" placeholder="Account Type" id="account_type" class="form-control" value="<?=$bank_details->account_type[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="ifsc_code">IFSC Code</label>
+                                                <input type="text" name="ifsc_code[]" placeholder="IFSC Code" id="ifsc_code" class="form-control" value="<?=$bank_details->ifsc_code[$i]?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bank_ac_no">Bank A/C No</label>
+                                                <input type="text" name="bank_ac_no[]" placeholder="Bank A/C No" id="bank_ac_no" class="form-control" value="<?=$bank_details->bank_ac_no[$i]?>">
+                                            </div>
+                                            
+                                            <button class="btn btn-success waves-effect waves-light w-md clone" type="button">Add Bank</button>                                       
+                                            <button class="btn btn-danger waves-effect waves-light w-md remove pull-right" type="button">Remove</button>                                       
+                                        </div> 
+                                        <?}?>
+                                    </div> 
+                                <?}?>
+                                
+                                <?if($this->parameters['tab']!='personal_information'){?>
+                                <button class="btn btn-primary waves-effect waves-light w-md pull-right" type="submit">Save</button>
+                                <?}?>
+                            <?=$this->form->form_close()?>
+                        </div>
+                    </div>                        
+
+                    <!-- Social -->
+                    <div class="panel panel-default panel-fill hide">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Social</h3>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <ul class="social-links list-inline m-b-0">
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                
+                                <li>
+                                    <a title="" data-placement="top" data-toggle="tooltip" class="tooltips" href="#" data-original-title="Skype"><i class="fa fa-skype"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Social -->
+                </div>
+
+                <div class="col-md-8 hide">
+                    <!-- Personal-Information -->
+                    <div class="panel panel-default panel-fill">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Biography</h3>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <h5 class="header-title text-uppercase">About</h5>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                industry. Lorem Ipsum has been the industry's standard dummy
+                                text ever since the 1500s, when an unknown printer took a galley
+                                of type and scrambled it to make a type specimen book. It has
+                                survived not only five centuries, but also the leap into
+                                electronic typesetting, remaining essentially unchanged.</p>
+
+                            <p><strong>But also the leap into electronic typesetting, remaining
+                                essentially unchanged.</strong></p>
+
+                            <p>It was popularised in the 1960s with the release of Letraset
+                                sheets containing Lorem Ipsum passages, and more recently with
+                                desktop publishing software like Aldus PageMaker including
+                                versions of Lorem Ipsum.</p>
+
+                            <div class="hide">                                
+                                <h5 class="header-title text-uppercase m-t-30 m-b-20">Skills</h5>
+
+                                <div class="m-b-15">
+                                    <h5>Angular Js <span
+                                            class="pull-right">60%</span></h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="60"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 60%">
+                                            <span class="sr-only">60% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-15">
+                                    <h5>Javascript <span
+                                            class="pull-right">90%</span></h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="90"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 90%">
+                                            <span class="sr-only">90% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-15">
+                                    <h5>Wordpress <span
+                                            class="pull-right">80%</span></h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="80"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 80%">
+                                            <span class="sr-only">80% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-b-0">
+                                    <h5>HTML5 &amp; CSS3 <span class="pull-right">95%</span>
+                                    </h5>
+                                    <div class="progress m-b-0">
+                                        <div class="progress-bar progress-bar-primary"
+                                             role="progressbar" aria-valuenow="95"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style="width: 95%">
+                                            <span class="sr-only">95% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+        <!-- Personal-Information -->  
+    </div>
+</div>
+
+<?if($profile->id==Session::get('user_id')){?>
+<script>
+    window.onload = function(){		
+        $('#referal_id').blur(function(){
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                url: "<?=AJAX_URL?>/get_referal_details/" + $('#referal_id').val(),
+                success: function(r){	
+                    $('#reffered_by').val(r.name);
+                    $('[name=reffered_by]').val(r.id);
+                }		
+            });
+        });        
+        
+        $('#avatar').click(function(){
+            $('[name=avatar]').click();
+        });
+        
+        $('[name=avatar]').change( function(e) {           
+            // create form element
+            var formdata = new FormData();
+            
+            // append form data
+            formdata.append('id', '<?=Session::get('user_id')?>');
+            formdata.append('avatar', e.target.files[0]);            
+            formdata.append('csrfToken', '<?=Session::get('token')?>');            
+            
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                async: true,
+                url: "<?=AJAX_URL?>/avatar_update",
+                processData: false,
+                contentType: false,               
+                cache: false,       
+                data: formdata,
+                success: function(r){	
+                    $('.session-avatar').attr('src', r.url);
+                }		
+            });
+        });
+    }
+</script>
+<?}?>
