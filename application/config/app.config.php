@@ -11,7 +11,7 @@
 	/**
 	* Application Name
 	*/
-	define ('APP_NAME', 'Smart Win Digital Life');
+	define ('APP_NAME', 'Smart World Digital Life');
 	
 	/**
 	* Application Version

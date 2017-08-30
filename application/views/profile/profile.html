@@ -131,8 +131,12 @@
                                     <input type="hidden" name="nextTab" value="profile?tab=communication_details">
                                     
                                     <div class="form-group">
-                                        <label for="referal_id">Referal ID / Mobile Number</label>
+                                        <label for="referal_id">Referal ID / Mobile Number</label>                                        
+                                        <?if(empty($profile->refferal_id)){?>
                                         <input type="text" placeholder="Referal ID / Mobile Number" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>" parsley-trigger="change" data-parsley-type="number" data-parsley-minlength="9" data-parsley-maxlength="10" required>
+                                        <?}else{?>
+                                        <input type="text" placeholder="Referal ID / Mobile Number" id="referal_id" class="form-control" value="<?=$profile->refferal_id?>" readonly="readonly">
+                                        <?}?>
                                     </div>
                                     
                                     <div class="form-group">
@@ -404,6 +408,7 @@
 <?if($profile->id==Session::get('user_id')){?>
 <script>
     window.onload = function(){		
+        <?if(empty($profile->refferal_id)){?>
         $('#referal_id').blur(function(){
             $.ajax({
                 type: 'POST',
@@ -415,7 +420,8 @@
                     $('[name=reffered_by]').val(r.id);
                 }		
             });
-        });        
+        });    
+        <?}?>
         
         $('#avatar').click(function(){
             $('[name=avatar]').click();

@@ -52,7 +52,7 @@
 		*/
 		function get_referal_details($referal_id){
             // get referal details
-            $referal = $this->model->get_user_details($referal_id);
+            $referal = $this->model->get_user_details($referal_id, false)->where_not_equal('id', Session::get('user_id'))->where_not_equal('reffered_by', Session::get('user_id'))->find_one();
             
             // return referal details
             echo json_encode(array('id'=>$referal->id, 'name'=>$referal->name));

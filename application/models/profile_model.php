@@ -86,7 +86,7 @@
 		* Function get_user_details
 		* @author Susanta Das
 		*/
-		function get_user_details($id){
+		function get_user_details($id, $fetch=true){
             // get user_profile
             $profile = $this->use_table('user')
                                         ->table_alias('u')
@@ -95,10 +95,13 @@
                                         ->select_expr("(SELECT name FROM user ru WHERE ru.id = u.reffered_by)", "refferal_name")
                                         ->left_outer_join('user_profile', array('u.id', '=', 'up.id'), 'up');                                        
            
-            if(strlen($id)==36)         
-                $profile = $profile->find_one($id);
+            if(strlen($id)==36)
+                $profile = $profile->where('id', $id);                    
             else
-                $profile = $profile->where_raw("(user_name = '$id' OR mobile = '$id')")->find_one();
+                $profile = $profile->where_raw("(user_name = '$id' OR mobile = '$id')");
+            
+            // fetch record
+            if($fetch) $profile = $profile->find_one();
                        
             // return profile
             return $profile;
