@@ -59,6 +59,15 @@
             <a href="?tab=bank_details">
                 Bank Details
             </a>
+        <li class="<?=$card_details?>">
+            <a href="?tab=card_details">
+                Card Details
+            </a>
+        </li>
+        <li class="<?=$payment_details?>">
+            <a href="?tab=payment_details">
+                Payment Details
+            </a>
         </li>
         <?}?>
     </ul>
@@ -122,7 +131,7 @@
                                         <strong>Referal Name</strong>
                                         <br>
                                         <?if(!empty($profile->reffered_by)){?>
-                                        <p class="text-muted"><a href="<?=APP_PATH?>/profile?id=<?=$profile->reffered_by?>"><?=$profile->refferal_name?></a></p>
+                                        <p class="text-muted"><?=$profile->refferal_name?></p>
                                         <?}else{?>
                                         <p class="text-muted">Not Available</p>
                                         <?}?>
