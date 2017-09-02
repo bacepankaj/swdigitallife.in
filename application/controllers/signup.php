@@ -49,11 +49,8 @@
             // set otp
             $data->otp = $otp;
                   
-            // prepare msg             
-            if($data->controller=='signup')
-                $msg = "Dear $data->name Thank to register with ".APP_NAME." your Id no is $otp";
-            else if($data->controller=='forgot_password')
-                $msg = "Dear $data->name Thank to register with ".APP_NAME." your Id no is $otp";
+            // prepare msg                         
+            $msg = "Your SWDIGITALLIFE OPT Authentication Code is $otp";
             
             // send message otp
             $this->functions->send_msg($data->mobile, $msg);
