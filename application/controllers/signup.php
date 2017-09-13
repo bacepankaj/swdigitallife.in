@@ -50,7 +50,7 @@
             $data->otp = $otp;
                   
             // prepare msg                         
-            $msg = "Your SWDIGITALLIFE OPT Authentication Code is $otp";
+            $msg = "Your SWDIGITALLIFE OTP Authentication Code is $otp";
             
             // send message otp
             $this->functions->send_msg($data->mobile, $msg);
@@ -130,6 +130,14 @@
 
                 fclose($handle);
             }
+        }
+        
+        function testSMS($mobile, $otp) {
+            // prepare msg                         
+            $msg = "Your SWDIGITALLIFE OTP Authentication Code is $otp";
+            
+            // send message otp
+            $this->functions->send_msg($mobile, $msg);
         }
 	}
 ?>

@@ -21,7 +21,7 @@
         function send_msg($phone_no, $message){
             //Dear XXXX Thank to register with XXXX your Id no is XXXX
             //Dear XXXX Your Id no is XXXX This Id will be used as an referral. Thank you for choosing XXXX
-            //Your SWDIGITALLIFE OPT Authentication Code is XXXXXX
+            //Your SWDIGITALLIFE OTP Authentication Code is XXXXXX
             //Dear XXXX Thank you for choosing XXXX
             
             //echo $message;
@@ -42,7 +42,7 @@
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
 
             // $output contains the output string 
-            $output = curl_exec($ch); 
+            echo $output = curl_exec($ch); 
 
             // close curl resource to free up system resources 
             curl_close($ch);
