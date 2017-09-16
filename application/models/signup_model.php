@@ -31,7 +31,7 @@
                 MsgBox::view()->show(Lang::error('002', array('mobile'=>$mobile, 'name'=>$name))->msg, Lang::error('002')->title);									
             } else {
                 // show error message
-                MsgBox::view()->show(Lang::error('003', array('mobile'=>$mobile, 'name'=>$name))->msg, Lang::error('003')->title, null, true, 1, 'success.svg', APP_PATH.'/signup/verify?verificationCode='.$this->functions->encrypt_decrypt('encrypt', json_encode(array('mobile'=>$mobile, 'name'=>$name, 'controller'=>$this->controller))), APP_PATH.'/signup');	
+                MsgBox::view()->show(Lang::error('003', array('mobile'=>$mobile, 'name'=>$name))->msg, Lang::error('003')->title, null, true, 1, 'success.svg', APP_PATH.'/signup/payment?verificationCode='.$this->functions->encrypt_decrypt('encrypt', json_encode(array('mobile'=>$mobile, 'name'=>$name, 'controller'=>$this->controller))), APP_PATH.'/signup');	
             }
 		}
         

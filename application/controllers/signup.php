@@ -32,6 +32,34 @@
 			// render view page
 			$this->view->display($this->view->template, false, false);
 		}
+        
+        /**
+		* payment
+		*
+		* Function payment
+		* @author Susanta Das
+		*/
+		function payment(){
+            // get required parameters
+            $parameters = array();
+            
+            // set required parameters
+            $parameters['mid'] = "WL0000000027698";
+            $parameters['encKey'] = "6375b97b954b37f956966977e5753ee6";
+            //$parameters['orderId'] = date("Ymdhis", strtotime("now"));
+            $parameters['orderId'] = mktime(date());
+            $parameters['amount'] = "301";
+            $parameters['remarks'] = "Account Registration Fees";
+            $parameters['responseUrl'] = AJAX_URL.'/verify?verificationCode='.$this->parameters['verificationCode'];
+                        
+            // parameters to memory
+            extract($parameters);
+            
+            //require phpToolKit for payment gateway
+            require BASE_PATH.'/application/plugins/phpToolKit/Sample_Project_Standard/meTrnPay.php';
+            
+            //phpinfo();
+        }
 
         /**
 		* verify
